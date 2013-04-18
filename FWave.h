@@ -108,19 +108,15 @@ namespace solver {
         T ql[2], qr[2];
         for (int i = 0; i < 2; i++) {
             if (roe[i] < 0) {
-                ql[0] += z[i][0];
-                ql[1] += z[i][1];
+                hNetUpdatesLeft += z[i][0];
+                huNetUpdatesLeft += z[i][1];
             }
             else if (roe[i] > 0) {
-                qr[0] += z[i][0];
-                qr[1] += z[i][1];
+                hNetUpdatesRight += z[i][0];
+                huNetUpdatesRight += z[i][1];
             }
         }
 
-        hNetUpdatesLeft = ql[0];
-        hNetUpdatesRight = qr[0];
-        huNetUpdatesLeft = ql[1];
-        huNetUpdatesRight = qr[1];
         if (roe[0] > 0 && roe[1] > 0)
             maxEdgeSpeed = roe[1];
         else if (roe[0] < 0 && roe[1] < 0)
