@@ -79,6 +79,8 @@ namespace solver {
         T a = 1, b = 1, c, d;
         computeRoeEigenvalues(hl, hr, hul, hur, c, d);
         T coefficient = 1.0 / (d - c);
+        // computing the alpha values by multiplying the inverse of
+        // the matrix of right eigenvectors to the jump in the fluxes
         alpha[0] = coefficient * (d * fluxDeltaValues[0] - b * fluxDeltaValues[1]);
         alpha[1] = coefficient * (-c * fluxDeltaValues[0] + a * fluxDeltaValues[1]);
     }
@@ -99,11 +101,13 @@ namespace solver {
         T roe[2];
         computeRoeEigenvalues(hl, hr, hul, hur, roe);
 
+        // compute the wave vectors
         T z[2][2];
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
                 z[i][j] = alpha[i] * roe[j];
 
+        // Add the
         T ql[2], qr[2];
         for (int i = 0; i < 2; i++) {
             if (roe[i] < 0) {
