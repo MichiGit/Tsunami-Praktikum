@@ -25,7 +25,7 @@ namespace solver {
 
         void computeFluxValues(T h, T hu, T fluxValues);
 
-        void computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF, T deltaF2, T a1, T a2);
+        void computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF, T deltaF2, T alpha);
     };
 
     /** \brief calculates the particle velocity
@@ -56,14 +56,14 @@ namespace solver {
         fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
     }
 
-    template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF1, T deltaF2, T a1, T a2) {
+    template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF1, T deltaF2, T alpha) {
         T a = 1;
         T b = 1;
         T c, d;
         computeRoeEigenvalues(hl, hr, hul, hur, c, d);
         T coefficient = 1.0 / (d - c);
-        a1 = coefficient * (d * deltaF1 - b * deltaF2);
-        a2 = coefficient * (-c * deltaF1 + a * deltaF2);
+        alpha[0] = coefficient * (d * deltaF1 - b * deltaF2);
+        alpha[1] = coefficient * (-c * deltaF1 + a * deltaF2);
     }
 
     /** \brief Computes the net updates and the maxiumum edge speed for a given set of wave quantities and the given bathymetry
@@ -88,14 +88,14 @@ namespace solver {
         computeFluxValues(hl, hul, fl);
         T deltaF1 = fr[0] - fl[0];
         T deltaF2 = fr[1] - fl[1];
-        T a1, a2;
-        computeEigencoefficients(hl, hr, hul, hur, deltaF1, deltaF2, a1, a2);
+        T alpha[2];
+        computeEigencoefficients(hl, hr, hul, hur, deltaF1, deltaF2, alpha);
         T roe1, roe2;
         computeRoeEigenvalues(hl, hr, hul, hur, roe1, roe2);
-        T z11 = a1 * roe1;
-        T z12 = a1 * roe2;
-        T z21 = a2 * roe1;
-        T z22 = a2 * roe2;
+        T z11 = alpha[0] * roe1;
+        T z12 = alpha[0] * roe2;
+        T z21 = alpha[1] * roe1;
+        T z22 = alpha[1] * roe2;
         T ql1, ql2, qr1, qr2;
         if (roe1 < 0) {
             ql1 += z11;
