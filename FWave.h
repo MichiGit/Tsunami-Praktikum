@@ -16,11 +16,35 @@ namespace solver {
 
     template <class T> class FWave {
     public:
+
+        /** \brief Computes the net updates and the maxiumum edge speed for a given set of wave quantities and the given bathymetry
+         *
+         * @param [in] hl The height of the left water column
+         * @param [in] hr The height of the right water column
+         * @param [in] hul The space time dependent momentum of the left water column
+         * @param [in] hur The space time dependent momentum of the right water column
+         * @param [in] b1
+         * @param [in] b2
+         * @param [out] hNetUpdatesLeft
+         * @param [out] hNetUpdatesRight
+         * @param [out] huNetUpdatesLeft
+         * @param [out] huNetUpdatesRight
+         * @param [out] maxEdgeSpeed the maximum of the two waves speed values
+         *
+         */
         void computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight,
                 T maxEdgeSpeed);
 
         void computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1);
 
+        /** \brief calculates the particle velocity
+         *
+         * @param [in] hl The height of the left water column
+         * @param [in] hr The height of the right water column
+         * @param [in] hul The space time dependent momentum of the left water column
+         * @param [in] hur The space time dependent momentum of the right water column
+         * @return The particle velocity for the given waves
+         */
         T computeParticleVelocity(T hl, T hr, T hul, T hur);
 
         void computeFluxValues(T h, T hu, T fluxValues);
@@ -31,14 +55,6 @@ namespace solver {
         void computeFluxDeltaValues(T hl, T hr, T hul, T hur, T fluxDeltaValues);
     };
 
-    /** \brief calculates the particle velocity
-     *
-     * @param [in] hl The height of the left water column
-     * @param [in] hr The height of the right water column
-     * @param [in] hul The space time dependent momentum of the left water column
-     * @param [in] hur The space time dependent momentum of the right water column
-     * @return The particle velocity for the given waves
-     */
     template <class T> T FWave<T>::computeParticleVelocity(T hl, T hr, T hul, T hur) {
         T ul = hul / hl;
         T ur = hur / hr;
@@ -77,21 +93,6 @@ namespace solver {
         fluxDeltaValues[1] = fr[1] - fl[1];
     }
 
-    /** \brief Computes the net updates and the maxiumum edge speed for a given set of wave quantities and the given bathymetry
-     *
-     * @param [in] hl The height of the left water column
-     * @param [in] hr The height of the right water column
-     * @param [in] hul The space time dependent momentum of the left water column
-     * @param [in] hur The space time dependent momentum of the right water column
-     * @param [in] b1
-     * @param [in] b2
-     * @param [out] hNetUpdatesLeft
-     * @param [out] hNetUpdatesRight
-     * @param [out] huNetUpdatesLeft
-     * @param [out] huNetUpdatesRight
-     * @param [out] maxEdgeSpeed the maximum of the two waves speed values
-     *
-     */
     template <class T> void FWave<T>::computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight, T maxEdgeSpeed) {
         T fluxDeltaValues[2];
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
