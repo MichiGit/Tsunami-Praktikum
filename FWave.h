@@ -22,7 +22,7 @@ public:
 
     void computeFluxFunction(T h, T hu, T f1, T f2);
 
-    void computeEigencoefficients(T hl, T hr, T hul, T hur, T roe1, T roe2, T deltaF, T deltaF2, T a1, T a2);
+    void computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF, T deltaF2, T a1, T a2);
 };
 
 template <class T> void FWave<T>::computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1, T roe2) {
@@ -38,7 +38,7 @@ template <class T> void FWave<T>::computeFluxFunction(T h, T hu, T f1, T f2) {
     f2 = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
 }
 
-template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T hur, T roe1, T roe2, T deltaF1, T deltaF2, T a1, T a2) {
+template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF1, T deltaF2, T a1, T a2) {
     T a = 1;
     T b = 1;
     T c, d;
@@ -47,8 +47,6 @@ template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T 
     a1 = coefficient * (d * deltaF1 - b * deltaF2);
     a2 = coefficient * (-c * deltaF1 + a * deltaF2);
 }
-
-
 
 #endif	/* _FWAVE_H */
 
