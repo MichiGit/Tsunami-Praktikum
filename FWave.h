@@ -25,6 +25,13 @@ public:
     void computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF, T deltaF2, T a1, T a2);
 };
 
+template <class T> T FWave<T>::computeParticleVelocity(T hl, T hr, T hul, T hur) {
+    T ul = hul / hl;
+    T ur = hur / hr;
+    T particleVelocity = (ul * sqrt(hl) + ur * sqrt(hr)) / (sqrt(hl) + sqrt(hr));
+    return particleVelocity;
+}
+
 template <class T> void FWave<T>::computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1, T roe2) {
     T pVelocity = computeParticleVelocity(hl, hr, hul, hur);
     T height = 1.0 / 2.0 * (hl + hr);
