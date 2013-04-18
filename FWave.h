@@ -19,7 +19,7 @@ namespace solver {
         void computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight,
                 T maxEdgeSpeed);
 
-        void computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1, T roe2);
+        void computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1);
 
         T computeParticleVelocity(T hl, T hr, T hul, T hur);
 
@@ -43,12 +43,12 @@ namespace solver {
         return particleVelocity;
     }
 
-    template <class T> void FWave<T>::computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1, T roe2) {
+    template <class T> void FWave<T>::computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe) {
         T pVelocity = computeParticleVelocity(hl, hr, hul, hur);
         T height = 1.0 / 2.0 * (hl + hr);
         T root = sqrt(g * height);
-        roe1 = pVelocity - root;
-        roe2 = pVelocity + root;
+        roe[0] = pVelocity - root;
+        roe[1] = pVelocity + root;
     }
 
     template <class T> void FWave<T>::computeFluxValues(T h, T hu, T fluxValues) {
@@ -90,12 +90,14 @@ namespace solver {
         T deltaF2 = fr[1] - fl[1];
         T alpha[2];
         computeEigencoefficients(hl, hr, hul, hur, deltaF1, deltaF2, alpha);
-        T roe1, roe2;
-        computeRoeEigenvalues(hl, hr, hul, hur, roe1, roe2);
-        T z11 = alpha[0] * roe1;
-        T z12 = alpha[0] * roe2;
-        T z21 = alpha[1] * roe1;
-        T z22 = alpha[1] * roe2;
+        T roe[2];
+        computeRoeEigenvalues(hl, hr, hul, hur, roe);
+
+        T z[2][2];
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 2; j++)
+                z[i][j] = alpha[i] * roe[j];
+
         T ql1, ql2, qr1, qr2;
         if (roe1 < 0) {
             ql1 += z11;
