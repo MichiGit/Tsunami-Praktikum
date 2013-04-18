@@ -25,6 +25,14 @@ public:
     void computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF, T deltaF2, T a1, T a2);
 };
 
+/** \brief calculates the particle velocity
+ *
+ * @param [in] hl The height of the left water column
+ * @param [in] hr The height of the right water column
+ * @param [in] hul The space time dependent momentum of the left water column
+ * @param [in] hur The space time dependent momentum of the right water column
+ * @return The particle velocity for the given waves
+ */
 template <class T> T FWave<T>::computeParticleVelocity(T hl, T hr, T hul, T hur) {
     T ul = hul / hl;
     T ur = hur / hr;
