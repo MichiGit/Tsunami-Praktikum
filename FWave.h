@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   FWave.h
  * Author: gutbrod
  *
@@ -20,7 +20,7 @@ namespace solver {
 
         T computeParticleVelocity(T hl, T hr, T hul, T hur);
 
-        void computeFluxFunction(T h, T hu, T f1, T f2);
+        void computeFluxValues(T h, T hu, T fluxValues);
 
         void computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF, T deltaF2, T a1, T a2);
     };
@@ -48,9 +48,9 @@ namespace solver {
         roe2 = pVelocity + root;
     }
 
-    template <class T> void FWave<T>::computeFluxFunction(T h, T hu, T f1, T f2) {
-        f1 = hu;
-        f2 = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
+    template <class T> void FWave<T>::computeFluxValues(T h, T hu, T fluxValues) {
+        fluxValues[0] = hu;
+        fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
     }
 
     template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF1, T deltaF2, T a1, T a2) {
@@ -79,12 +79,12 @@ namespace solver {
      *
      */
     template <class T> void FWave<T>::computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight, T maxEdgeSpeed) {
-        T fr1, fr2;
-        computeFluxFunction(hr, hur, fr1, fr2);
-        T fl1, fl2;
-        computeFluxFunction(hl, hul, fl1, fl2);
-        T deltaF1 = fr1 - fl1;
-        T deltaF2 = fr2 - fl2;
+        T fr[2];
+        computeFluxValues(hr, hur, fr);
+        T fl[2];
+        computeFluxValues(hl, hul, fl);
+        T deltaF1 = fr[0] - fl[0];
+        T deltaF2 = fr[1] - fl[1];
         T a1, a2;
         computeEigencoefficients(hl, hr, hul, hur, deltaF1, deltaF2, a1, a2);
         T roe1, roe2;
