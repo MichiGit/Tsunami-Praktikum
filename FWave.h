@@ -114,11 +114,11 @@ namespace solver {
         hNetUpdatesRight = qr[0];
         huNetUpdatesLeft = ql[1];
         huNetUpdatesRight = qr[1];
-        if (roe[0] > 0 && roe[1] > 0) {
+        if (roe[0] > 0 && roe[1] > 0)
             maxEdgeSpeed = roe[1];
-        } else if (roe[0] < 0 && roe[1] < 0) {
+        else if (roe[0] < 0 && roe[1] < 0)
             maxEdgeSpeed = 0;
-        } else
+        else
             std::max(roe[0], roe[1]);
     }
 
