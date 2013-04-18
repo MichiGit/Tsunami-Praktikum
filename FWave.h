@@ -26,6 +26,9 @@ namespace solver {
         void computeFluxValues(T h, T hu, T fluxValues);
 
         void computeEigencoefficients(T hl, T hr, T hul, T hur, T deltaF, T deltaF2, T alpha);
+
+    private:
+        void computeFluxDeltaValues(T hl, T hr, T hul, T hur, T fluxDeltaValues);
     };
 
     /** \brief calculates the particle velocity
@@ -66,6 +69,14 @@ namespace solver {
         alpha[1] = coefficient * (-c * deltaF1 + a * deltaF2);
     }
 
+    template <class T> void FWave<T>::computeFluxDeltaValues(T hl, T hr, T hul, T hur, T fluxDeltaValues) {
+        T fl[2], fr[2];
+        computeFluxValues(hl, hul, fl);
+        computeFluxValues(hr, hur, fr);
+        fluxDeltaValues[0] = fr[0] - fl[0];
+        fluxDeltaValues[1] = fr[1] - fl[1];
+    }
+
     /** \brief Computes the net updates and the maxiumum edge speed for a given set of wave quantities and the given bathymetry
      *
      * @param [in] hl The height of the left water column
@@ -82,14 +93,10 @@ namespace solver {
      *
      */
     template <class T> void FWave<T>::computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight, T maxEdgeSpeed) {
-        T fr[2];
-        computeFluxValues(hr, hur, fr);
-        T fl[2];
-        computeFluxValues(hl, hul, fl);
-        T deltaF1 = fr[0] - fl[0];
-        T deltaF2 = fr[1] - fl[1];
+        T fluxDeltaValues[2];
+        computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
         T alpha[2];
-        computeEigencoefficients(hl, hr, hul, hur, deltaF1, deltaF2, alpha);
+        computeEigencoefficients(hl, hr, hul, hur, fluxDeltaValues[0], fluxDeltaValues[1], alpha);
         T roe[2];
         computeRoeEigenvalues(hl, hr, hul, hur, roe);
 
