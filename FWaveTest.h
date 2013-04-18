@@ -8,15 +8,38 @@
 #ifndef _FWAVETEST_H
 #define	_FWAVETEST_H
 
-#include <cxxtest/TestSuite.h>
+typedef float T;
 
-class FWaveTest : public CxxTest::TestSuite
-{
+#include <cxxtest/TestSuite.h>
+#include "FWave.h"
+
+class FWaveTest : public CxxTest::TestSuite {
 public:
-    void testAddition(void)
-    {
-        
+
+    void testEigenvalueComputation() {
+
     }
+
+    void testZeroNetUpdates() {
+
+    }
+
+    void testSupersonicProblems() {
+
+    }
+
+    void setUp() {
+        m_solver = new FWave;
+    }
+
+    void tearDown() {
+        delete m_solver;
+    }
+
+private:
+    solver::FWave<T> m_solver;
+
+
 };
 
 
