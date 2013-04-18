@@ -7,7 +7,10 @@
 
 #ifndef _FWAVE_H
 #define	_FWAVE_H
+
 #include <math.h>
+#include <algorithm>
+
 #define g 9.81
 namespace solver {
 
@@ -116,11 +119,8 @@ namespace solver {
             maxEdgeSpeed = roe2;
         } else if (roe1 < 0 && roe2 < 0) {
             maxEdgeSpeed = 0;
-        } else if (roe1 >= roe2) {
-            maxEdgeSpeed = roe1;
-        } else {
-            maxEdgeSpeed = roe2;
-        }
+        } else
+            std::max(roe1, roe2);
     }
 
 }
