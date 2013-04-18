@@ -76,9 +76,7 @@ namespace solver {
     }
 
     template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T hur, T fluxDeltaValues, T alpha) {
-        T a = 1;
-        T b = 1;
-        T c, d;
+        T a = 1, b = 1, c, d;
         computeRoeEigenvalues(hl, hr, hul, hur, c, d);
         T coefficient = 1.0 / (d - c);
         alpha[0] = coefficient * (d * fluxDeltaValues[0] - b * fluxDeltaValues[1]);
