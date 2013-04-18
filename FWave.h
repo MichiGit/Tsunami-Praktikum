@@ -99,19 +99,15 @@ namespace solver {
                 z[i][j] = alpha[i] * roe[j];
 
         T ql[2], qr[2];
-        if (roe[0] < 0) {
-            ql[0] += z[0][0];
-            ql[1] += z[0][1];
-        } else if (roe[0] > 0) {
-            qr[0] += z[0][0];
-            qr[1] += z[0][1];
-        }
-        if (roe[1] < 0) {
-            ql[0] += z[1][0];
-            ql[1] += z[1][1];
-        } else if (roe[1] > 0) {
-            qr[0] += z[1][0];
-            qr[1] += z[1][1];
+        for (int i = 0; i < 2; i++) {
+            if (roe[i] < 0) {
+                ql[0] += z[i][0];
+                ql[1] += z[i][1];
+            }
+            else if (roe[i] > 0) {
+                qr[0] += z[i][0];
+                qr[1] += z[i][1];
+            }
         }
 
         hNetUpdatesLeft = ql[0];
