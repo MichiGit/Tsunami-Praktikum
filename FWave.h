@@ -98,31 +98,32 @@ namespace solver {
             for (int j = 0; j < 2; j++)
                 z[i][j] = alpha[i] * roe[j];
 
-        T ql1, ql2, qr1, qr2;
-        if (roe1 < 0) {
-            ql1 += z11;
-            ql2 += z12;
-        } else if (roe1 > 0) {
-            qr1 += z11;
-            qr2 += z12;
+        T ql[2], qr[2];
+        if (roe[0] < 0) {
+            ql[0] += z[0][0];
+            ql[1] += z[0][1];
+        } else if (roe[0] > 0) {
+            qr[0] += z[0][0];
+            qr[1] += z[0][1];
         }
-        if (roe2 < 0) {
-            ql1 += z21;
-            ql2 += z22;
-        } else if (roe2 > 0) {
-            qr1 += z21;
-            qr2 += z22;
+        if (roe[1] < 0) {
+            ql[0] += z[1][0];
+            ql[1] += z[1][1];
+        } else if (roe[1] > 0) {
+            qr[0] += z[1][0];
+            qr[1] += z[1][1];
         }
-        hNetUpdatesLeft = ql1;
-        hNetUpdatesRight = qr1;
-        huNetUpdatesLeft = ql2;
-        huNetUpdatesRight = qr2;
-        if (roe1 > 0 && roe2 > 0) {
-            maxEdgeSpeed = roe2;
-        } else if (roe1 < 0 && roe2 < 0) {
+
+        hNetUpdatesLeft = ql[0];
+        hNetUpdatesRight = qr[0];
+        huNetUpdatesLeft = ql[1];
+        huNetUpdatesRight = qr[1];
+        if (roe[0] > 0 && roe[1] > 0) {
+            maxEdgeSpeed = roe[1];
+        } else if (roe[0] < 0 && roe[1] < 0) {
             maxEdgeSpeed = 0;
         } else
-            std::max(roe1, roe2);
+            std::max(roe[0], roe[1]);
     }
 
 }
