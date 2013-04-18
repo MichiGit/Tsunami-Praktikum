@@ -63,6 +63,21 @@ template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T 
     a2 = coefficient * (-c * deltaF1 + a * deltaF2);
 }
 
+/** \brief Computes the net updates and the maxiumum edge speed for a given set of wave quantities and the given bathymetry
+ *
+ * @param [in] hl The height of the left water column
+ * @param [in] hr The height of the right water column
+ * @param [in] hul The space time dependent momentum of the left water column
+ * @param [in] hur The space time dependent momentum of the right water column
+ * @param [in] b1
+ * @param [in] b2
+ * @param [out] hNetUpdatesLeft
+ * @param [out] hNetUpdatesRight
+ * @param [out] huNetUpdatesLeft
+ * @param [out] huNetUpdatesRight
+ * @param [out] maxEdgeSpeed the maximum of the two waves speed values
+ *
+ */
 template <class T> void FWave<T>::computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight, T maxEdgeSpeed){
     T fr1, fr2;
     computeFluxFunction(hr, hur, fr1, fr2);
