@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   FWaveTest.h
  * Author: gutbrod
  *
@@ -30,14 +30,14 @@ public:
         T hr = 10;
         T hul = 5;
         T hur = 5;
-        m_solver->computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
         checkIfUpdatesAreApproximatelyZero(updates);
         hl = hr = 48;
         hul = hur = -39;
-        m_solver->computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
         checkIfUpdatesAreApproximatelyZero(updates);
         hl = hr = hul = hur = 0;
-        m_solver->computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
         checkIfUpdatesAreApproximatelyZero(updates);
     }
 
