@@ -44,14 +44,6 @@ public:
 
     }
 
-    void setUp() {
-        m_solver = new FWave;
-    }
-
-    void tearDown() {
-        delete m_solver;
-    }
-
 private:
     solver::FWave<T> m_solver;
     void checkIfUpdatesAreApproximatelyZero(const T updates[4]) {
