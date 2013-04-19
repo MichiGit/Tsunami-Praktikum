@@ -47,7 +47,7 @@ namespace solver {
          */
         T computeParticleVelocity(T hl, T hr, T hul, T hur);
 
-        void computeFluxValues(T h, T hu, T fluxValues);
+        void computeFluxValues(const T &h, const T &hu, T fluxValues[2]);
 
         void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
 
@@ -70,7 +70,7 @@ namespace solver {
         roe[1] = pVelocity + root;
     }
 
-    template <class T> void FWave<T>::computeFluxValues(T h, T hu, T fluxValues) {
+    template <class T> void FWave<T>::computeFluxValues(const T &h, const T &hu, T fluxValues[2]) {
         fluxValues[0] = hu;
         fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
     }
