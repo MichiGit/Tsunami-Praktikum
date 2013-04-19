@@ -76,8 +76,9 @@ namespace solver {
     }
 
     template <class T> void FWave<T>::computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]) {
-        T a = 1, b = 1, c, d;
-        computeRoeEigenvalues(hl, hr, hul, hur, c, d);
+        T roe[2];
+        computeRoeEigenvalues(hl, hr, hul, hur, roe);
+        T a = 1, b = 1, c = roe[0], d = roe[1];
         T coefficient = 1.0 / (d - c);
         // computing the alpha values by multiplying the inverse of
         // the matrix of right eigenvectors to the jump in the fluxes
