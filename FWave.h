@@ -49,7 +49,7 @@ namespace solver {
 
         void computeFluxValues(T h, T hu, T fluxValues);
 
-        void computeEigencoefficients(T hl, T hr, T hul, T hur, T fluxDeltaValues, T alpha);
+        void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
 
     private:
         void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]);
@@ -75,7 +75,7 @@ namespace solver {
         fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
     }
 
-    template <class T> void FWave<T>::computeEigencoefficients(T hl, T hr, T hul, T hur, T fluxDeltaValues, T alpha) {
+    template <class T> void FWave<T>::computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]) {
         T a = 1, b = 1, c, d;
         computeRoeEigenvalues(hl, hr, hul, hur, c, d);
         T coefficient = 1.0 / (d - c);
