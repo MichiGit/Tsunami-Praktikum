@@ -23,8 +23,8 @@ namespace solver {
          * @param [in] hr The height of the right water column
          * @param [in] hul The space time dependent momentum of the left water column
          * @param [in] hur The space time dependent momentum of the right water column
-         * @param [in] b1
-         * @param [in] b2
+         * @param [in] bl
+         * @param [in] br
          * @param [out] hNetUpdatesLeft
          * @param [out] hNetUpdatesRight
          * @param [out] huNetUpdatesLeft
@@ -32,7 +32,7 @@ namespace solver {
          * @param [out] maxEdgeSpeed the maximum of the two waves speed values
          *
          */
-        void computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight,
+        void computeNetUpdates(T hl, T hr, T hul, T hur, T bl, T br, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight,
                 T maxEdgeSpeed);
 
         void computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1);
@@ -93,7 +93,7 @@ namespace solver {
         fluxDeltaValues[1] = fr[1] - fl[1];
     }
 
-    template <class T> void FWave<T>::computeNetUpdates(T hl, T hr, T hul, T hur, T b1, T b2, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight, T maxEdgeSpeed) {
+    template <class T> void FWave<T>::computeNetUpdates(T hl, T hr, T hul, T hur, T bl, T br, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight, T maxEdgeSpeed) {
         T fluxDeltaValues[2];
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
         T alpha[2];
