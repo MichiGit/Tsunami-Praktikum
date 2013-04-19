@@ -45,17 +45,17 @@ namespace solver {
          * @param [in] hur The space time dependent momentum of the right water column
          * @return The particle velocity for the given waves
          */
-        T computeParticleVelocity(const T hl, const T hr, const T hul, const T hur);
+        T computeParticleVelocity(const T hl, const T hr, const T hul, const T hur) const;
 
-        void computeFluxValues(const T &h, const T &hu, T fluxValues[2]);
+        void computeFluxValues(const T &h, const T &hu, T fluxValues[2]) const;
 
         void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
 
     private:
-        void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]);
+        void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]) const;
     };
 
-    template <class T> T FWave<T>::computeParticleVelocity(const T hl, const T hr, const T hul, const T hur) {
+    template <class T> T FWave<T>::computeParticleVelocity(const T hl, const T hr, const T hul, const T hur) const {
         T ul = hul / hl;
         T ur = hur / hr;
         T particleVelocity = (ul * sqrt(hl) + ur * sqrt(hr)) / (sqrt(hl) + sqrt(hr));
@@ -70,7 +70,7 @@ namespace solver {
         roe[1] = pVelocity + root;
     }
 
-    template <class T> void FWave<T>::computeFluxValues(const T &h, const T &hu, T fluxValues[2]) {
+    template <class T> void FWave<T>::computeFluxValues(const T &h, const T &hu, T fluxValues[2]) const {
         fluxValues[0] = hu;
         fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
     }
@@ -86,7 +86,7 @@ namespace solver {
         alpha[1] = coefficient * (-c * fluxDeltaValues[0] + a * fluxDeltaValues[1]);
     }
 
-    template <class T> void FWave<T>::computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]) {
+    template <class T> void FWave<T>::computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]) const {
         T fl[2], fr[2];
         computeFluxValues(hl, hul, fl);
         computeFluxValues(hr, hur, fr);
