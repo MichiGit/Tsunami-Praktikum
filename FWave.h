@@ -45,7 +45,7 @@ namespace solver {
          * @param [in] hur The space time dependent momentum of the right water column
          * @return The particle velocity for the given waves
          */
-        T computeParticleVelocity(T hl, T hr, T hul, T hur);
+        T computeParticleVelocity(const T hl, const T hr, const T hul, const T hur);
 
         void computeFluxValues(const T &h, const T &hu, T fluxValues[2]);
 
@@ -55,7 +55,7 @@ namespace solver {
         void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]);
     };
 
-    template <class T> T FWave<T>::computeParticleVelocity(T hl, T hr, T hul, T hur) {
+    template <class T> T FWave<T>::computeParticleVelocity(const T hl, const T hr, const T hul, const T hur) {
         T ul = hul / hl;
         T ur = hur / hr;
         T particleVelocity = (ul * sqrt(hl) + ur * sqrt(hr)) / (sqrt(hl) + sqrt(hr));
