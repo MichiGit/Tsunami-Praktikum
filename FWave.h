@@ -32,8 +32,8 @@ namespace solver {
          * @param [out] maxEdgeSpeed the maximum of the two waves speed values
          *
          */
-        void computeNetUpdates(T hl, T hr, T hul, T hur, T bl, T br, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight,
-                T maxEdgeSpeed);
+        void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
+                T &maxEdgeSpeed);
 
         void computeRoeEigenvalues(T hl, T hr, T hul, T hur, T roe1);
 
@@ -93,7 +93,8 @@ namespace solver {
         fluxDeltaValues[1] = fr[1] - fl[1];
     }
 
-    template <class T> void FWave<T>::computeNetUpdates(T hl, T hr, T hul, T hur, T bl, T br, T hNetUpdatesLeft, T hNetUpdatesRight, T huNetUpdatesLeft, T huNetUpdatesRight, T maxEdgeSpeed) {
+    template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
+                T &maxEdgeSpeed) {
         T fluxDeltaValues[2];
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
         T alpha[2];

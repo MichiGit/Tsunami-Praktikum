@@ -10,10 +10,6 @@
 
 typedef float T;
 
-#define b1 0.0
-#define b2 0.0
-
-
 #include <cxxtest/TestSuite.h>
 #include "FWave.h"
 
@@ -25,19 +21,22 @@ public:
     }
 
     void testZeroNetUpdates() {
+        T b1 = 0.0;
+        T b2 = 0.0;
         T *updates = new T[4];
         T hl = 10;
         T hr = 10;
         T hul = 5;
         T hur = 5;
-        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
+        T maxEdgeSpeed;
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
         hl = hr = 48;
         hul = hur = -39;
-        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
         hl = hr = hul = hur = 0;
-        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3]);
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
     }
 
