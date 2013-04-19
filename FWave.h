@@ -35,7 +35,7 @@ namespace solver {
         void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed);
 
-        void computeRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur, T roe[2]);
+        void computeRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur);
 
         /** \brief calculates the particle velocity
          *
@@ -52,6 +52,9 @@ namespace solver {
         void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
 
     private:
+
+        T roeEigenvalues[2];
+
         void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]) const;
     };
 
@@ -62,12 +65,12 @@ namespace solver {
         return particleVelocity;
     }
 
-    template <class T> void FWave<T>::computeRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur, T roe[2]) {
+    template <class T> void FWave<T>::computeRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur) {
         T pVelocity = computeParticleVelocity(hl, hr, hul, hur);
         T height = 1.0 / 2.0 * (hl + hr);
         T root = sqrt(g * height);
-        roe[0] = pVelocity - root;
-        roe[1] = pVelocity + root;
+        roeEigenvalues[0] = pVelocity - root;
+        roeEigenvalues[1] = pVelocity + root;
     }
 
     template <class T> void FWave<T>::computeFluxValues(const T &h, const T &hu, T fluxValues[2]) const {
@@ -76,9 +79,7 @@ namespace solver {
     }
 
     template <class T> void FWave<T>::computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]) {
-        T roe[2];
-        computeRoeEigenvalues(hl, hr, hul, hur, roe);
-        T a = 1, b = 1, c = roe[0], d = roe[1];
+        T a = 1, b = 1, c = roeEigenvalues[0], d = roeEigenvalues[1];
         T coefficient = 1.0 / (d - c);
         // computing the alpha values by multiplying the inverse of
         // the matrix of right eigenvectors to the jump in the fluxes
@@ -100,34 +101,33 @@ namespace solver {
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
         T alpha[2];
         computeEigencoefficients(hl, hr, hul, hur, fluxDeltaValues, alpha);
-        T roe[2];
-        computeRoeEigenvalues(hl, hr, hul, hur, roe);
+        computeRoeEigenvalues(hl, hr, hul, hur);
 
         // compute the wave vectors
         T z[2][2];
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
-                z[i][j] = alpha[i] * roe[j];
+                z[i][j] = alpha[i] * roeEigenvalues[j];
 
         // Add the
         T ql[2], qr[2];
         for (int i = 0; i < 2; i++) {
-            if (roe[i] < 0) {
+            if (roeEigenvalues[i] < 0) {
                 hNetUpdatesLeft += z[i][0];
                 huNetUpdatesLeft += z[i][1];
             }
-            else if (roe[i] > 0) {
+            else if (roeEigenvalues[i] > 0) {
                 hNetUpdatesRight += z[i][0];
                 huNetUpdatesRight += z[i][1];
             }
         }
 
-        if (roe[0] > 0 && roe[1] > 0)
-            maxEdgeSpeed = roe[1];
-        else if (roe[0] < 0 && roe[1] < 0)
+        if (roeEigenvalues[0] > 0 && roeEigenvalues[1] > 0)
+            maxEdgeSpeed = roeEigenvalues[1];
+        else if (roeEigenvalues[0] < 0 && roeEigenvalues[1] < 0)
             maxEdgeSpeed = 0;
         else
-            std::max(roe[0], roe[1]);
+            std::max(roeEigenvalues[0], roeEigenvalues[1]);
     }
 
 }
