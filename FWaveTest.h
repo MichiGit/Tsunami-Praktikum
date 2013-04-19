@@ -50,7 +50,7 @@ private:
 
         for (int i = 0; i < 4; i++) {
             TS_ASSERT_LESS_THAN(updates[i], 1);
-            TS_ASSERT_GREATER_THAN(updates[i], -1);
+            TS_ASSERT_LESS_THAN(-1, updates[i]);
         }
     }
 
