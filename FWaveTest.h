@@ -54,8 +54,8 @@ public:
 
 private:
     solver::FWave<T> m_solver;
+    void checkIfUpdatesAreApproximatelyZero(const T updates[4]) {
 
-    void checkIfUpdatesAreApproximatelyZero(T updates) {
         for (int i = 0; i < 4; i++) {
             TS_ASSERT_LESS_THAN(updates[i], 1);
             TS_ASSERT_GREATER_THAN(updates[i], -1);
