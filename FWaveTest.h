@@ -33,7 +33,12 @@ public:
         hul = -4;
         hr = 540;
         hur = 40;
+        expectedEigenvalues[0] = -64.1520;
+        expectedEigenvalues[1] = 64.2255;
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        m_solver.getRoeEigenvalues(actualEigenvalues);
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
         hl = 64;
         hul = -128;
         hr = 1000;
