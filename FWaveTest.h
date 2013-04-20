@@ -23,7 +23,7 @@ public:
     void testZeroNetUpdates() {
         T b1 = 0.0;
         T b2 = 0.0;
-        T *updates = new T[4];
+        T updates[4];
         T hl = 10;
         T hr = 10;
         T hul = 5;
