@@ -51,6 +51,8 @@ namespace solver {
 
         void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
 
+        void getRoeEigenvalues(T eigenvalues[2]);
+
     private:
 
         T roeEigenvalues[2];
@@ -93,6 +95,11 @@ namespace solver {
         computeFluxValues(hr, hur, fr);
         fluxDeltaValues[0] = fr[0] - fl[0];
         fluxDeltaValues[1] = fr[1] - fl[1];
+    }
+
+    template <class T> void FWave<T>::getRoeEigenvalues(T eigenvalues[2]) {
+       eigenvalues[0] = roeEigenvalues[0];
+       eigenvalues[1] = roeEigenvalues[1];
     }
 
     template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
