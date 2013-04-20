@@ -17,11 +17,18 @@ class FWaveTest : public CxxTest::TestSuite {
 public:
 
     void testEigenvalueComputation() {
+        T expectedEigenvalues[2];
+        T actualEigenvalues[2];
         hl = 10;
         hul = 20;
         hr = 1;
         hur = 8;
+        expectedEigenvalues[0] = -3.903;
+        expectedEigenvalues[1] = 10.786;
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        m_solver.getRoeEigenvalues(actualEigenvalues);
+        compareActualToExpectedEigenvalues(actualEigenvalues, expectedEigenvalues);
+
         hl = 300;
         hul = -4;
         hr = 540;
@@ -72,6 +79,11 @@ private:
             TS_ASSERT_LESS_THAN(updates[i], 1);
             TS_ASSERT_LESS_THAN(-1, updates[i]);
         }
+    }
+
+    void compareActualToExpectedEigenvalues(T actualEigenvalues[2], T expectedEigenvalues[2]) {
+        for (int i = 0; i < 2; i++)
+            TS_ASSERT_EQUALS(actualEigenvalues[i], expectedEigenvalues[i]);
     }
 
 };
