@@ -71,7 +71,21 @@ public:
     }
 
     void testSupersonicProblems() {
-
+        // the components of the wave speed vector will have non opposite signs if hl = -hr
+        hl = 10;
+        hr = -10;
+        hul = 45;
+        hur = 435;
+        T maxEdgeSpeed;
+        T b1 = 0.0;
+        T b2 = 0.0;
+        T updates[4];
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
+        bool zeroUpdateFound = false;
+        for (int i = 0; i < 4; i++)
+            if (updates[i] == 0)
+                zeroUpdateFound = true;
+        TS_ASSERT(zeroUpdateFound);
     }
 
 private:
