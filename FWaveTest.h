@@ -24,10 +24,8 @@ public:
         T b1 = 0.0;
         T b2 = 0.0;
         T updates[4];
-        T hl = 10;
-        T hr = 10;
-        T hul = 5;
-        T hur = 5;
+        hl = hr = 10;
+        hul = hur = 5;
         T maxEdgeSpeed;
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
@@ -46,7 +44,14 @@ public:
     }
 
 private:
+
     solver::FWave<T> m_solver;
+
+    T hl;
+    T hul;
+    T hr;
+    T hur;
+
     void checkIfUpdatesAreApproximatelyZero(const T updates[4]) {
 
         for (int i = 0; i < 4; i++) {
