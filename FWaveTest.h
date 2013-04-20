@@ -16,6 +16,8 @@ typedef float T;
 class FWaveTest : public CxxTest::TestSuite {
 public:
 
+    FWaveTest(): b1(0.0), b2(0.0) { }
+
     void testEigenvalueComputation() {
         T expectedEigenvalues[2];
         T actualEigenvalues[2];
@@ -52,8 +54,6 @@ public:
     }
 
     void testZeroNetUpdates() {
-        T b1 = 0.0;
-        T b2 = 0.0;
         T updates[4];
         hl = hr = 10;
         hul = hur = 5;
@@ -77,8 +77,6 @@ public:
         hul = 45;
         hur = 435;
         T maxEdgeSpeed;
-        T b1 = 0.0;
-        T b2 = 0.0;
         T updates[4];
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         bool leftUpdateIsZero = updates[0] == 0 && updates[2] == 0;
@@ -94,6 +92,8 @@ private:
     T hul;
     T hr;
     T hur;
+    T b1;
+    T b2;
 
     void checkIfUpdatesAreApproximatelyZero(const T updates[4]) {
 
