@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include <algorithm>
+#include <cassert>
 
 #define g 9.81
 namespace solver {
@@ -61,8 +62,12 @@ namespace solver {
     };
 
     template <class T> T FWave<T>::computeParticleVelocity(const T hl, const T hr, const T hul, const T hur) const {
+        // we should not divide by zero
+        assert(hl != (T)0);
+        assert(hr != (T)0);
         T ul = hul / hl;
         T ur = hur / hr;
+        assert(sqrt(hl) + sqrt(hr) != (T)0);
         T particleVelocity = (ul * sqrt(hl) + ur * sqrt(hr)) / (sqrt(hl) + sqrt(hr));
         return particleVelocity;
     }
@@ -82,6 +87,8 @@ namespace solver {
 
     template <class T> void FWave<T>::computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]) {
         T a = 1, b = 1, c = roeEigenvalues[0], d = roeEigenvalues[1];
+        // We should not divide by zero
+        assert(d - c != (T)0);
         T coefficient = 1.0 / (d - c);
         // computing the alpha values by multiplying the inverse of
         // the matrix of right eigenvectors to the jump in the fluxes
