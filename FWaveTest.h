@@ -23,12 +23,12 @@ public:
         hul = 20;
         hr = 1;
         hur = 8;
-        expectedEigenvalues[0] = -3.903;
-        expectedEigenvalues[1] = 10.786;
+        expectedEigenvalues[0] = -3.9038;
+        expectedEigenvalues[1] = 10.7869;
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
         m_solver.getRoeEigenvalues(actualEigenvalues);
-        compareActualToExpectedEigenvalues(actualEigenvalues, expectedEigenvalues);
-
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
         hl = 300;
         hul = -4;
         hr = 540;
@@ -84,6 +84,10 @@ private:
     void compareActualToExpectedEigenvalues(T actualEigenvalues[2], T expectedEigenvalues[2]) {
         for (int i = 0; i < 2; i++)
             TS_ASSERT_EQUALS(actualEigenvalues[i], expectedEigenvalues[i]);
+    }
+
+    bool areValuesAlmostEqual(T value1, T value2) {
+        return fabs(value1 - value2) < 0.001;
     }
 
 };
