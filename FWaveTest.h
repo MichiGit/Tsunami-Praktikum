@@ -35,7 +35,8 @@ public:
         hul = hur = -39;
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
-        hl = hr = hul = hur = 0;
+        hl = hr = 3000;
+        hul = hur = 0;
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
     }
