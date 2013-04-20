@@ -69,7 +69,7 @@ namespace solver {
 
     template <class T> void FWave<T>::computeRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur) {
         T pVelocity = computeParticleVelocity(hl, hr, hul, hur);
-        T height = 1.0 / 2.0 * (hl + hr);
+        T height = 0.5 * (hl + hr);
         T root = sqrt(g * height);
         roeEigenvalues[0] = pVelocity - root;
         roeEigenvalues[1] = pVelocity + root;
