@@ -81,11 +81,9 @@ public:
         T b2 = 0.0;
         T updates[4];
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
-        bool zeroUpdateFound = false;
-        for (int i = 0; i < 4; i++)
-            if (updates[i] == 0)
-                zeroUpdateFound = true;
-        TS_ASSERT(zeroUpdateFound);
+        bool leftUpdateIsZero = updates[0] == 0 && updates[2] == 0;
+        bool rightUpdateIsZero = updates[1] == 0 && updates[3] == 0;
+        TS_ASSERT(leftUpdateIsZero || rightUpdateIsZero);
     }
 
 private:
