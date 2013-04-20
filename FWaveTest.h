@@ -17,7 +17,21 @@ class FWaveTest : public CxxTest::TestSuite {
 public:
 
     void testEigenvalueComputation() {
-
+        hl = 10;
+        hul = 20;
+        hr = 1;
+        hur = 8;
+        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        hl = 300;
+        hul = -4;
+        hr = 540;
+        hur = 40;
+        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        hl = 64;
+        hul = -128;
+        hr = 1000;
+        hur = -647;
+        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
     }
 
     void testZeroNetUpdates() {
