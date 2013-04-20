@@ -43,7 +43,12 @@ public:
         hul = -128;
         hr = 1000;
         hur = -647;
+        expectedEigenvalues[0] = -73.1622;
+        expectedEigenvalues[1] = 71.3219;
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        m_solver.getRoeEigenvalues(actualEigenvalues);
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
     }
 
     void testZeroNetUpdates() {
