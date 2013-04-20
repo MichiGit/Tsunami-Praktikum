@@ -57,7 +57,6 @@ public:
         T updates[4];
         hl = hr = 10;
         hul = hur = 5;
-        T maxEdgeSpeed;
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
         hl = hr = 48;
@@ -76,7 +75,6 @@ public:
         hr = -10;
         hul = 45;
         hur = 435;
-        T maxEdgeSpeed;
         T updates[4];
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         bool leftUpdateIsZero = updates[0] == 0 && updates[2] == 0;
@@ -94,6 +92,7 @@ private:
     T hur;
     T b1;
     T b2;
+    T maxEdgeSpeed;
 
     void checkIfUpdatesAreApproximatelyZero(const T updates[4]) {
 
