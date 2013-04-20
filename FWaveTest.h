@@ -97,7 +97,7 @@ private:
     }
 
     bool areValuesAlmostEqual(T value1, T value2) {
-        return fabs(value1 - value2) < 0.001;
+        return fabs(value1 - value2) < 0.0001;
     }
 
 };
