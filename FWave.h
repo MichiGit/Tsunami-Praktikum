@@ -104,18 +104,17 @@ namespace solver {
 
     template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed) {
+        computeRoeEigenvalues(hl, hr, hul, hur);
         T fluxDeltaValues[2];
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
         T alpha[2];
         computeEigencoefficients(hl, hr, hul, hur, fluxDeltaValues, alpha);
-        computeRoeEigenvalues(hl, hr, hul, hur);
 
         // compute the wave vectors
         T z[2][2];
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
                 z[i][j] = alpha[i] * roeEigenvalues[j];
-
         // Add the
         T ql[2], qr[2];
         for (int i = 0; i < 2; i++) {
