@@ -35,7 +35,7 @@ namespace solver {
         void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed);
 
-        void computeRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur);
+        void updateRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur);
 
         /** \brief calculates the particle velocity
          *
@@ -67,7 +67,7 @@ namespace solver {
         return particleVelocity;
     }
 
-    template <class T> void FWave<T>::computeRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur) {
+    template <class T> void FWave<T>::updateRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur) {
         T pVelocity = computeParticleVelocity(hl, hr, hul, hur);
         T height = 0.5 * (hl + hr);
         T root = sqrt(g * height);
@@ -104,7 +104,7 @@ namespace solver {
 
     template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed) {
-        computeRoeEigenvalues(hl, hr, hul, hur);
+        updateRoeEigenvalues(hl, hr, hul, hur);
         T fluxDeltaValues[2];
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
         T alpha[2];
