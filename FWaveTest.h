@@ -33,7 +33,7 @@ public:
         hul = -4;
         hr = 540;
         hur = 40;
-        expectedEigenvalues[0] = -64.1520;
+        expectedEigenvalues[0] = -64.152;
         expectedEigenvalues[1] = 64.2255;
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
         m_solver.getRoeEigenvalues(actualEigenvalues);
