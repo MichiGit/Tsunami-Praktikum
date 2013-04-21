@@ -111,6 +111,8 @@ namespace solver {
     }
 
     template <class T> void FWave<T>::updateRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur) {
+        // The height should not be negative
+        assert(hl >= 0 && hr >= 0);
         T pVelocity = computeParticleVelocity(hl, hr, hul, hur);
         T height = 0.5 * (hl + hr);
         T root = sqrt(g * height);
@@ -119,11 +121,15 @@ namespace solver {
     }
 
     template <class T> void FWave<T>::computeFluxValues(const T &h, const T &hu, T fluxValues[2]) const {
+        // The height should not be negative
+        assert(h >= 0);
         fluxValues[0] = hu;
         fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
     }
 
     template <class T> void FWave<T>::computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]) {
+        // The height should not be negative
+        assert(hl >= 0 && hr >= 0);
         T a = 1, b = 1, c = roeEigenvalues[0], d = roeEigenvalues[1];
         // We should not divide by zero
         assert(d - c != (T)0);
@@ -149,6 +155,8 @@ namespace solver {
 
     template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed) {
+        // The height should not be negative
+        assert(hl >= 0 && hr >= 0);
         updateRoeEigenvalues(hl, hr, hul, hur);
         T fluxDeltaValues[2];
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
