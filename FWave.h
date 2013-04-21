@@ -18,19 +18,23 @@ namespace solver {
     template <class T> class FWave {
     public:
 
-        /** \brief Computes the net updates and the maxiumum edge speed for a given set of wave quantities and the given bathymetry
+        /** \brief Computes the net updates and the maxiumum edge speed for a given set of parameters.
+         *
+         * Computes the net updates and the maximum edge speed for a given set of water columns and bathymetry values.
+         * The roe eigenvalues, the wave speeds and the wave speeds of both the left and the right water column
+         * which are calculated during the computation of the updates can be retrieved via the appropriate getters.
          *
          * @param [in] hl The height of the left water column
          * @param [in] hr The height of the right water column
          * @param [in] hul The space time dependent momentum of the left water column
          * @param [in] hur The space time dependent momentum of the right water column
-         * @param [in] bl
-         * @param [in] br
-         * @param [out] hNetUpdatesLeft
-         * @param [out] hNetUpdatesRight
-         * @param [out] huNetUpdatesLeft
-         * @param [out] huNetUpdatesRight
-         * @param [out] maxEdgeSpeed the maximum of the two waves speed values
+         * @param [in] bl The first bathymetry component
+         * @param [in] br The second bathymetry component
+         * @param [out] hNetUpdatesLeft The net update for the height of the left water column
+         * @param [out] hNetUpdatesRight The net update for the height of the right water column
+         * @param [out] huNetUpdatesLeft The net update for the momentum of the left water column
+         * @param [out] huNetUpdatesRight The net update for the momentum of the right water column
+         * @param [out] maxEdgeSpeed The maximum of the two waves speed values
          *
          */
         void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
