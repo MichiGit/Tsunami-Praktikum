@@ -94,6 +94,13 @@ private:
     T b2;
     T maxEdgeSpeed;
 
+    void singleEigenvalueComputationTest(const T &hl, const T &hr, const T &hul, const T &hur, const T expectedEigenvalues[2], T actualEigenvalues[2]) {
+        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        m_solver.getRoeEigenvalues(actualEigenvalues);
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
+        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
+    }
+
     void checkIfUpdatesAreApproximatelyZero(const T updates[4]) {
 
         for (int i = 0; i < 4; i++) {
