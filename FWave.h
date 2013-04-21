@@ -82,7 +82,7 @@ namespace solver {
          * @param [in] fluxDeltaValues The jump in the fluxes
          * @param [out] alpha The eigencofficients (alpha values) for the given input
          */
-        void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
+        void computeEigencoefficients(const T &hl, const T &hr, const T fluxDeltaValues[2], T alpha[2]);
 
         /**
          * Returns the values of the member variables storing the eigenvalues
@@ -127,7 +127,7 @@ namespace solver {
         fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
     }
 
-    template <class T> void FWave<T>::computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]) {
+    template <class T> void FWave<T>::computeEigencoefficients(const T &hl, const T &hr, const T fluxDeltaValues[2], T alpha[2]) {
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
         T a = 1, b = 1, c = roeEigenvalues[0], d = roeEigenvalues[1];
@@ -161,15 +161,14 @@ namespace solver {
         T fluxDeltaValues[2];
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
         T alpha[2];
-        computeEigencoefficients(hl, hr, hul, hur, fluxDeltaValues, alpha);
+        computeEigencoefficients(hl, hr, fluxDeltaValues, alpha);
 
         // compute the wave vectors
         T z[2][2];
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
                 z[i][j] = alpha[i] * roeEigenvalues[j];
-        // Add the
-        T ql[2], qr[2];
+
         for (int i = 0; i < 2; i++) {
             if (roeEigenvalues[i] < 0) {
                 hNetUpdatesLeft += z[i][0];
