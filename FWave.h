@@ -71,6 +71,17 @@ namespace solver {
          */
         void computeFluxValues(const T &h, const T &hu, T fluxValues[2]) const;
 
+        /**
+         * Computes the eigencoefficients for a given set of water columns and
+         * the corresponding jump in the fluxes.
+         *
+         * @param [in] hl The height of the left water column
+         * @param [in] hr The height of the right water column
+         * @param [in] hul The space time dependent momentum of the left water column
+         * @param [in] hur The space time dependent momentum of the right water column
+         * @param [in] fluxDeltaValues The jump in the fluxes
+         * @param [out] alpha The eigencofficients (alpha values) for the given input
+         */
         void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
 
         void getRoeEigenvalues(T eigenvalues[2]);
