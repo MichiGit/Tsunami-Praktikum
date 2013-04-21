@@ -62,6 +62,12 @@ namespace solver {
          */
         T computeParticleVelocity(const T hl, const T hr, const T hul, const T hur) const;
 
+        /** \brief Computes the values of the flux function for a given water column
+         *
+         * @param [in] h The height of the water column
+         * @param [in] hu The space time dependent momentum of the water column
+         * @param [out] The values of the flux function for the given water column
+         */
         void computeFluxValues(const T &h, const T &hu, T fluxValues[2]) const;
 
         void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
