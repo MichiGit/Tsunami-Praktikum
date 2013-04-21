@@ -40,6 +40,16 @@ namespace solver {
         void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed);
 
+        /** \brief Updates the stored roe eigenvalues.
+         *
+         * Updates the values of the member variables storing the roe eigenvalues for a given set of water columns.
+         * The eigenvalues can be accessed using the corresponding getter method.
+         *
+         * @param [in] hl The height of the left water column
+         * @param [in] hr The height of the right water column
+         * @param [in] hul The space time dependent momentum of the left water column
+         * @param [in] hur The space time dependent momentum of the right water column
+         */
         void updateRoeEigenvalues(const T &hl, const T &hr, const T &hul, const T &hur);
 
         /** \brief calculates the particle velocity
