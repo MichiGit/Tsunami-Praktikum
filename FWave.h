@@ -84,6 +84,12 @@ namespace solver {
          */
         void computeEigencoefficients(const T &hl, const T &hr, const T &hul, const T &hur, const T fluxDeltaValues[2], T alpha[2]);
 
+        /**
+         * Returns the values of the member variables storing the eigenvalues
+         * of a given set of water columns.
+         *
+         * @param [in] eigenvalues The values of the member variables
+         */
         void getRoeEigenvalues(T eigenvalues[2]);
 
     private:
