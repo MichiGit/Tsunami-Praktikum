@@ -37,7 +37,7 @@ namespace solver {
          * @param [out] maxEdgeSpeed The maximum of the two waves speed values
          *
          */
-        void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
+        void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T bl, T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed);
 
         /** \brief Updates the stored roe eigenvalues.
@@ -153,7 +153,7 @@ namespace solver {
        eigenvalues[1] = roeEigenvalues[1];
     }
 
-    template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T &bl, T &br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
+    template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T bl, T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                 T &maxEdgeSpeed) {
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
