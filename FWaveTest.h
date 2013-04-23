@@ -96,13 +96,13 @@ private:
         }
     }
 
-    void compareActualToExpectedEigenvalues(T actualEigenvalues[2], T expectedEigenvalues[2])
+    void compareActualToExpectedEigenvalues(const T actualEigenvalues[2], const T expectedEigenvalues[2])
     {
         for (int i = 0; i < 2; i++)
             TS_ASSERT_EQUALS(actualEigenvalues[i], expectedEigenvalues[i]);
     }
 
-    bool areValuesAlmostEqual(T value1, T value2)
+    bool areValuesAlmostEqual(const T value1, const T value2)
     {
         return fabs(value1 - value2) < 0.0001;
     }
