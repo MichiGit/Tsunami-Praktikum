@@ -174,9 +174,11 @@ template <class T> void FWave<T>::computeNetUpdates(T &hl, T &hr, T &hul, T &hur
 
     // compute the wave vectors
     T z[2][2];
-    for (int i = 0; i < 2; i++)
-        for (int j = 0; j < 2; j++)
-            z[i][j] = alpha[i] * roeEigenvalues[j];
+
+    z[0][0] = alpha[0];
+    z[0][1] = alpha[0] * roeEigenvalues[0];
+    z[1][0] = alpha[1];
+    z[1][1] = alpha[1] * roeEigenvalues[1];
 
     for (int i = 0; i < 2; i++)
     {
