@@ -26,9 +26,9 @@ public:
     int getMomentum(unsigned int pos)
     {
         int v = 200;
-		if (pos <= m_size/2)
-			return -v;
-		return v;
+        if (pos <= m_size/2)
+            return -v;
+        return v;
     }
 
     /**

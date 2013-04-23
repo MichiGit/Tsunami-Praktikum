@@ -13,12 +13,14 @@ typedef float T;
 #include <cxxtest/TestSuite.h>
 #include "FWave.h"
 
-class FWaveTest : public CxxTest::TestSuite {
+class FWaveTest : public CxxTest::TestSuite
+{
 public:
 
     FWaveTest(): b1(0.0), b2(0.0) { }
 
-    void testEigenvalueComputation() {
+    void testEigenvalueComputation()
+    {
         T expectedEigenvalues[2];
         T actualEigenvalues[2];
         hl = 10;
@@ -53,7 +55,8 @@ public:
         TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
     }
 
-    void testZeroNetUpdates() {
+    void testZeroNetUpdates()
+    {
         T updates[4];
         hl = hr = 10;
         hul = hur = 5;
@@ -69,7 +72,8 @@ public:
         checkIfUpdatesAreApproximatelyZero(updates);
     }
 
-    void testSupersonicProblems() {
+    void testSupersonicProblems()
+    {
         // the components of the wave speed vector will have non opposite signs if hl = -hr
         hl = 10;
         hr = -10;
@@ -94,27 +98,32 @@ private:
     T b2;
     T maxEdgeSpeed;
 
-    void singleEigenvalueComputationTest(const T &hl, const T &hr, const T &hul, const T &hur, const T expectedEigenvalues[2], T actualEigenvalues[2]) {
+    void singleEigenvalueComputationTest(const T &hl, const T &hr, const T &hul, const T &hur, const T expectedEigenvalues[2], T actualEigenvalues[2])
+    {
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
         m_solver.getRoeEigenvalues(actualEigenvalues);
         TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
         TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
     }
 
-    void checkIfUpdatesAreApproximatelyZero(const T updates[4]) {
+    void checkIfUpdatesAreApproximatelyZero(const T updates[4])
+    {
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++)
+        {
             TS_ASSERT_LESS_THAN(updates[i], 1);
             TS_ASSERT_LESS_THAN(-1, updates[i]);
         }
     }
 
-    void compareActualToExpectedEigenvalues(T actualEigenvalues[2], T expectedEigenvalues[2]) {
+    void compareActualToExpectedEigenvalues(T actualEigenvalues[2], T expectedEigenvalues[2])
+    {
         for (int i = 0; i < 2; i++)
             TS_ASSERT_EQUALS(actualEigenvalues[i], expectedEigenvalues[i]);
     }
 
-    bool areValuesAlmostEqual(T value1, T value2) {
+    bool areValuesAlmostEqual(T value1, T value2)
+    {
         return fabs(value1 - value2) < 0.0001;
     }
 
