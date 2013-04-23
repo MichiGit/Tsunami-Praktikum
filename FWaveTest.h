@@ -17,8 +17,6 @@ class FWaveTest : public CxxTest::TestSuite
 {
 public:
 
-    FWaveTest(): b1(0.0), b2(0.0) { }
-
     void testEigenvalueComputation()
     {
         testSingleEigenvalueComputation(10, 1, 20, 8, -3.9038, 10.7869);
@@ -28,36 +26,48 @@ public:
 
     void testZeroNetUpdates()
     {
-        T updates[4];
-        hl = hr = 10;
-        hul = hur = 5;
-        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
-        checkIfUpdatesAreApproximatelyZero(updates);
-        hl = hr = 48;
-        hul = hur = -39;
-        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
-        checkIfUpdatesAreApproximatelyZero(updates);
-        hl = hr = 3000;
-        hul = hur = 0;
-        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
-        checkIfUpdatesAreApproximatelyZero(updates);
+        testSingleZeroNetUpdate(10.0, 10.0, 5.0, 5.0, 0.0, 0.0);
+        testSingleZeroNetUpdate(48.0, 48.0, -39.0, -39.0, 0.0, 0.0);
+        testSingleZeroNetUpdate(3000.0, 3000.0, 0.0, 0.0, 0.0, 0.0);
     }
 
     void testSupersonicProblems()
     {
-        // the components of the wave speed vector will have non opposite signs if hl = -hr
-        hl = 10;
-        hr = -10;
-        hul = 45;
-        hur = 435;
-        T updates[4];
+        testSingleSupersonicProblem(1.0, 1.0, 10.0, 20.0, 0.0, 0.0);
+    }
+
+private:
+
+    void testSingleZeroNetUpdate(T hl, T hr, T hul, T hur, T b1, T b2)
+    {
+        T updates[4] = {0};
+        T maxEdgeSpeed;
+        m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
+        checkIfUpdatesAreApproximatelyZero(updates);
+    }
+
+    void testSingleSupersonicProblem(T hl, T hr, T hul, T hur, T b1, T b2)
+    {
+        T updates[4] = {0};
+        T maxEdgeSpeed;
+        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        T roe[2];
+        m_solver.getRoeEigenvalues(roe);
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         bool leftUpdateIsZero = updates[0] == 0 && updates[2] == 0;
         bool rightUpdateIsZero = updates[1] == 0 && updates[3] == 0;
         TS_ASSERT(leftUpdateIsZero || rightUpdateIsZero);
-    }
+        T particleVelocity = m_solver.computeParticleVelocity(hl, hr, hul, hur);
+        if (particleVelocity > 0)
+        {
+            TS_ASSERT(maxEdgeSpeed >= 0);
 
-private:
+        }
+        else if (particleVelocity < 0)
+        {
+            TS_ASSERT(maxEdgeSpeed == 0);
+        }
+    }
 
     void testSingleEigenvalueComputation(const T hl, const T hr, const T hul, const T hur, const T expected1, const T expected2)
     {
@@ -69,14 +79,6 @@ private:
     }
 
     solver::FWave<T> m_solver;
-
-    T hl;
-    T hul;
-    T hr;
-    T hur;
-    T b1;
-    T b2;
-    T maxEdgeSpeed;
 
     void singleEigenvalueComputationTest(const T &hl, const T &hr, const T &hul, const T &hur, const T expectedEigenvalues[2], T actualEigenvalues[2])
     {
