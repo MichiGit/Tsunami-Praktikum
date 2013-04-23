@@ -21,38 +21,9 @@ public:
 
     void testEigenvalueComputation()
     {
-        T expectedEigenvalues[2];
-        T actualEigenvalues[2];
-        hl = 10;
-        hul = 20;
-        hr = 1;
-        hur = 8;
-        expectedEigenvalues[0] = -3.9038;
-        expectedEigenvalues[1] = 10.7869;
-        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
-        m_solver.getRoeEigenvalues(actualEigenvalues);
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
-        hl = 300;
-        hul = -4;
-        hr = 540;
-        hur = 40;
-        expectedEigenvalues[0] = -64.152;
-        expectedEigenvalues[1] = 64.2255;
-        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
-        m_solver.getRoeEigenvalues(actualEigenvalues);
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
-        hl = 64;
-        hul = -128;
-        hr = 1000;
-        hur = -647;
-        expectedEigenvalues[0] = -73.1622;
-        expectedEigenvalues[1] = 71.3219;
-        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
-        m_solver.getRoeEigenvalues(actualEigenvalues);
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
+        testSingleEigenvalueComputation(10, 1, 20, 8, -3.9038, 10.7869);
+        testSingleEigenvalueComputation(300, 540, -4, 40, -64.152, 64.2255);
+        testSingleEigenvalueComputation(64, 1000, -128, -647, -73.1622, 71.3219);
     }
 
     void testZeroNetUpdates()
@@ -87,6 +58,15 @@ public:
     }
 
 private:
+
+    void testSingleEigenvalueComputation(const T hl, const T hr, const T hul, const T hur, const T expected1, const T expected2)
+    {
+        T actualEigenvalues[2];
+        m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
+        m_solver.getRoeEigenvalues(actualEigenvalues);
+        TS_ASSERT(areValuesAlmostEqual(expected1, actualEigenvalues[0]));
+        TS_ASSERT(areValuesAlmostEqual(expected2, actualEigenvalues[1]));
+    }
 
     solver::FWave<T> m_solver;
 
