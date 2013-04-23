@@ -23,6 +23,9 @@ public:
         return 300;
     }
 
+    /**
+     * @return Space time dependent momentum at pos
+     */
     int getMomentum(unsigned int pos)
     {
         int v = 200;
