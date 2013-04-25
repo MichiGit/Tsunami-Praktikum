@@ -105,7 +105,19 @@ private:
             TS_ASSERT(maxEdgeSpeed == 0);
         }
     }
-
+    
+    /** \brief tests the Eigenvalue Computation
+     * 
+     *  Updates and reads the calculated RoeEigenvalues.
+     *  Then it compares it to the ones which were calculated manually and tests if they are approximatly equal.
+     * 
+     * @param [in] hl The height of the left water column
+     * @param [in] hr The height of the right water column
+     * @param [in] hul The space time dependent momentum of the left water column
+     * @param [in] hur The space time dependent momentum of the right water column
+     * @param [in] expected1 first expected Eigenvalue 
+     * @param [in] expected2 second expected Eigenvalue 
+     */
     void testSingleEigenvalueComputation(const T hl, const T hr, const T hul, const T hur, const T expected1, const T expected2)
     {
         T actualEigenvalues[2];
