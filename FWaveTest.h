@@ -35,7 +35,6 @@ public:
      * 
      * 
      */
-
     void testZeroNetUpdates()
     {
         testSingleZeroNetUpdate(10.0, 10.0, 5.0, 5.0, 0.0, 0.0);
@@ -46,7 +45,6 @@ public:
     /** \brief calls the testSingleSupersonicProblem method a set of values
      * 
      */
-
     void testSupersonicProblems()
     {
         testSingleSupersonicProblem(1.0, 1.0, 10.0, 20.0, 0.0, 0.0);
@@ -54,6 +52,17 @@ public:
 
 private:
 
+    /** \brief tests if the net updates are approximately zero
+     * 
+     *  Computes the net updates and then tests if they are with respect to machine precision approximately zero.
+     * 
+     * @param [in] hl The height of the left water column
+     * @param [in] hr The height of the right water column
+     * @param [in] hul The space time dependent momentum of the left water column
+     * @param [in] hur The space time dependent momentum of the right water column
+     * @param [in] b1 The first bathymetry component
+     * @param [in] b2 The second bathymetry component
+     */
     void testSingleZeroNetUpdate(T hl, T hr, T hul, T hur, T b1, T b2)
     {
         T updates[4] = {0};
