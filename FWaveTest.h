@@ -150,13 +150,23 @@ private:
             TS_ASSERT_LESS_THAN(-1, updates[i]);
         }
     }
-
+    /** \brief tests if the given actual Eigenvalues equal the expected Eigenvalues
+     * 
+     * @param [in] actualEigenvalues array with the actual Eigenvalues
+     * @param [in] expectedEigenvalues array with the expected Eigenvalues
+     */
     void compareActualToExpectedEigenvalues(const T actualEigenvalues[2], const T expectedEigenvalues[2])
     {
         for (int i = 0; i < 2; i++)
             TS_ASSERT_EQUALS(actualEigenvalues[i], expectedEigenvalues[i]);
     }
 
+    /** \brief tests if given values are approximatly equal
+     * 
+     * @param [in] value1 first value 
+     * @param [in] value2 second value
+     * @return 
+     */
     bool areValuesAlmostEqual(const T value1, const T value2)
     {
         return fabs(value1 - value2) < 0.0001;
