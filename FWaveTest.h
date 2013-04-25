@@ -17,6 +17,13 @@ class FWaveTest : public CxxTest::TestSuite
 {
 public:
 
+    /** \brief calls the testSingleEigenvalueComputation method with different values
+     * 
+     *  Runs the testSingleEigenvalueComputation method three times.
+     *  Every method call gets different parameters.
+     *  The expected Eigenvalues were calulated manually.
+     * 
+     */
     void testEigenvalueComputation()
     {
         testSingleEigenvalueComputation(10, 1, 20, 8, -3.9038, 10.7869);
