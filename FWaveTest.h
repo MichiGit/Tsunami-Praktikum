@@ -71,6 +71,18 @@ private:
         checkIfUpdatesAreApproximatelyZero(updates);
     }
 
+    /** \brief tests the correctness for a supersonic problem
+     * 
+     *  updates RoeEigenvalues, computes the net updates and tests if the supersonic implication, 
+     *  that one of the net updates is zero, is true.
+     *
+     * @param [in] hl The height of the left water column
+     * @param [in] hr The height of the right water column
+     * @param [in] hul The space time dependent momentum of the left water column
+     * @param [in] hur The space time dependent momentum of the right water column
+     * @param [in] b1 The first bathymetry component
+     * @param [in] b2 The second bathymetry component
+     */
     void testSingleSupersonicProblem(T hl, T hr, T hul, T hur, T b1, T b2)
     {
         T updates[4] = {0};
