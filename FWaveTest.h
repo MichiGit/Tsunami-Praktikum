@@ -33,6 +33,8 @@ public:
     
     /** \brief calls the testSingleZeroNetUpdate method with different sets of values
      * 
+     *  Calls testSingleZeroNetUpdate with values that represent steady states to test
+     *  if the net updates will be zero as expected.     * 
      * 
      */
     void testZeroNetUpdates()
@@ -165,7 +167,7 @@ private:
      * 
      * @param [in] value1 first value 
      * @param [in] value2 second value
-     * @return 
+     * @return true if the values are equal, else false
      */
     bool areValuesAlmostEqual(const T value1, const T value2)
     {
