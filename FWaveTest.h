@@ -30,6 +30,11 @@ public:
         testSingleEigenvalueComputation(300, 540, -4, 40, -64.152, 64.2255);
         testSingleEigenvalueComputation(64, 1000, -128, -647, -73.1622, 71.3219);
     }
+    
+    /** \brief calls the testSingleZeroNetUpdate method with different values
+     * 
+     * 
+     */
 
     void testZeroNetUpdates()
     {
