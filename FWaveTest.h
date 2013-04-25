@@ -128,7 +128,7 @@ private:
     }
 
     solver::FWave<T> m_solver;
-
+    
     void singleEigenvalueComputationTest(const T &hl, const T &hr, const T &hul, const T &hur, const T expectedEigenvalues[2], T actualEigenvalues[2])
     {
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
@@ -137,6 +137,10 @@ private:
         TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
     }
 
+    /** \brief tests if the given values are approximately zero
+     * 
+     * @param [in] updates
+     */
     void checkIfUpdatesAreApproximatelyZero(const T updates[4])
     {
 
