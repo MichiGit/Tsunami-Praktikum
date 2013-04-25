@@ -17,7 +17,7 @@ class FWaveTest : public CxxTest::TestSuite
 {
 public:
 
-    /** \brief calls the testSingleEigenvalueComputation method with different values
+    /** \brief calls the testSingleEigenvalueComputation method with different sets of values
      * 
      *  Runs the testSingleEigenvalueComputation method three times.
      *  Every method call gets different parameters.
@@ -31,7 +31,7 @@ public:
         testSingleEigenvalueComputation(64, 1000, -128, -647, -73.1622, 71.3219);
     }
     
-    /** \brief calls the testSingleZeroNetUpdate method with different values
+    /** \brief calls the testSingleZeroNetUpdate method with different sets of values
      * 
      * 
      */
@@ -42,6 +42,10 @@ public:
         testSingleZeroNetUpdate(48.0, 48.0, -39.0, -39.0, 0.0, 0.0);
         testSingleZeroNetUpdate(3000.0, 3000.0, 0.0, 0.0, 0.0, 0.0);
     }
+    
+    /** \brief calls the testSingleSupersonicProblem method a set of values
+     * 
+     */
 
     void testSupersonicProblems()
     {
