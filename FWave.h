@@ -152,7 +152,6 @@ public:
     {
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
-        T a = 1, b = 1, c = roeEigenvalues[0], d = roeEigenvalues[1];
         // We should not divide by zero
         assert(roeEigenvalues[1] - roeEigenvalues[0] != (T)0);
         T coefficient = 1.0 / (roeEigenvalues[1] - roeEigenvalues[0]);
