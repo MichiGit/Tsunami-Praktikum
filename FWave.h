@@ -8,7 +8,7 @@
 #ifndef _FWAVE_H
 #define	_FWAVE_H
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <cassert>
 
