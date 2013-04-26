@@ -42,6 +42,7 @@ public:
     void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T bl, T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                            T &maxEdgeSpeed)
     {
+        hNetUpdatesLeft = hNetUpdatesRight = huNetUpdatesLeft = huNetUpdatesRight = maxEdgeSpeed = (T)0;
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
         updateRoeEigenvalues(hl, hr, hul, hur);
