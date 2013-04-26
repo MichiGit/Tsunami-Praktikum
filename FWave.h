@@ -179,11 +179,8 @@ private:
 
     void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]) const
     {
-        T fl[2], fr[2];
-        computeFluxValues(hl, hul, fl);
-        computeFluxValues(hr, hur, fr);
-        fluxDeltaValues[0] = fr[0] - fl[0];
-        fluxDeltaValues[1] = fr[1] - fl[1];
+        fluxDeltaValues[0] = hur - hul;
+        fluxDeltaValues[1] = hur * (hur / hr) + 0.5 * g * hr * hr - (hul  * (hul / hl)  + 0.5 * g * hl * hl);
     }
 };
 
