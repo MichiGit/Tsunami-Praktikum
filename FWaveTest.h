@@ -33,6 +33,8 @@ public:
     
     /** \brief calls the testSingleZeroNetUpdate method with different sets of values
      * 
+     *  Calls testSingleZeroNetUpdate with values that represent steady states to test
+     *  if the net updates will be zero as expected.     * 
      * 
      */
     void testZeroNetUpdates()
@@ -128,7 +130,7 @@ private:
     }
 
     solver::FWave<T> m_solver;
-
+    
     void singleEigenvalueComputationTest(const T &hl, const T &hr, const T &hul, const T &hur, const T expectedEigenvalues[2], T actualEigenvalues[2])
     {
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
@@ -137,6 +139,10 @@ private:
         TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
     }
 
+    /** \brief tests if the given values are approximately zero
+     * 
+     * @param [in] updates
+     */
     void checkIfUpdatesAreApproximatelyZero(const T updates[4])
     {
 
@@ -146,13 +152,23 @@ private:
             TS_ASSERT_LESS_THAN(-1, updates[i]);
         }
     }
-
+    /** \brief tests if the given actual Eigenvalues equal the expected Eigenvalues
+     * 
+     * @param [in] actualEigenvalues array with the actual Eigenvalues
+     * @param [in] expectedEigenvalues array with the expected Eigenvalues
+     */
     void compareActualToExpectedEigenvalues(const T actualEigenvalues[2], const T expectedEigenvalues[2])
     {
         for (int i = 0; i < 2; i++)
             TS_ASSERT_EQUALS(actualEigenvalues[i], expectedEigenvalues[i]);
     }
 
+    /** \brief tests if given values are approximatly equal
+     * 
+     * @param [in] value1 first value 
+     * @param [in] value2 second value
+     * @return true if the values are equal, else false
+     */
     bool areValuesAlmostEqual(const T value1, const T value2)
     {
         return fabs(value1 - value2) < 0.0001;
