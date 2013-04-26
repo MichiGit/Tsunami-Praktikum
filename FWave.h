@@ -134,7 +134,7 @@ public:
         // The height should not be negative
         assert(h >= 0);
         fluxValues[0] = hu;
-        fluxValues[1] = pow(hu, 2) + 1.0 / 2.0 * g * pow(h, 2);
+        fluxValues[1] = h * hu + 0.5 * g * h * h;
     }
 
     /**
