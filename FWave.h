@@ -46,9 +46,9 @@ public:
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
         updateRoeEigenvalues(hl, hr, hul, hur);
-        T fluxDeltaValues[2];
+        T fluxDeltaValues[2] = {0};
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
-        T alpha[2];
+        T alpha[2] = {0};
         computeEigencoefficients(hl, hr, fluxDeltaValues, alpha);
 
         // compute the wave vectors
