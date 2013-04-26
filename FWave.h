@@ -154,12 +154,12 @@ public:
         assert(hl >= 0 && hr >= 0);
         T a = 1, b = 1, c = roeEigenvalues[0], d = roeEigenvalues[1];
         // We should not divide by zero
-        assert(d - c != (T)0);
-        T coefficient = 1.0 / (d - c);
+        assert(roeEigenvalues[1] - roeEigenvalues[0] != (T)0);
+        T coefficient = 1.0 / (roeEigenvalues[1] - roeEigenvalues[0]);
         // computing the alpha values by multiplying the inverse of
         // the matrix of right eigenvectors to the jump in the fluxes
-        alpha[0] = coefficient * (d * fluxDeltaValues[0] - b * fluxDeltaValues[1]);
-        alpha[1] = coefficient * (-c * fluxDeltaValues[0] + a * fluxDeltaValues[1]);
+        alpha[0] = coefficient * (roeEigenvalues[1] * fluxDeltaValues[0] - fluxDeltaValues[1]);
+        alpha[1] = coefficient * (-roeEigenvalues[0] * fluxDeltaValues[0] + fluxDeltaValues[1]);
     }
 
     /**
