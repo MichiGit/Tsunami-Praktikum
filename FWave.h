@@ -78,7 +78,7 @@ public:
         else if (roeEigenvalues[0] < 0 && roeEigenvalues[1] < 0)
             maxEdgeSpeed = 0;
         else
-            std::max(roeEigenvalues[0], roeEigenvalues[1]);
+            maxEdgeSpeed = std::max(std::fabs(roeEigenvalues[0]), std::fabs(roeEigenvalues[1]));
     }
 
     /** \brief Updates the stored roe eigenvalues.
