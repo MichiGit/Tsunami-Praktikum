@@ -11,7 +11,7 @@
 typedef float T;
 
 #include <cxxtest/TestSuite.h>
-#include "FWave.h"
+#include "FWave.hpp"
 
 class FWaveTest : public CxxTest::TestSuite
 {
