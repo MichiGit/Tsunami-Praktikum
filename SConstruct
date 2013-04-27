@@ -60,6 +60,10 @@ cxx = Environment(tools = ['default', 'cxxtest'])
 # execute the fwave test
 cxx.CxxTest('fwave', ['FWaveTest.h', 'src/WavePropagation.cpp'])
 
+# doxygen environment
+doxy = Environment(tools = ["default", "doxygen"])
+doxy.Doxygen('Doxyfile')
+
 # eclipse specific flag
 env.Append(CCFLAGS=['-fmessage-length=0'])
 
