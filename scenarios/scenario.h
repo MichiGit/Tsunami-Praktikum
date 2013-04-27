@@ -8,6 +8,13 @@ template <typename T> class Scenario
 {
 
 protected:
+
+    /**
+     * The standard constructor for a scenario where there are only
+     * two different wave vectors "meeting" each other at some
+     * position \f$x_{dis}\f$ which defaults to the middle of the
+     * scenario size \f$\lfloor{x/2}\rfloor\f$
+     */
     Scenario(unsigned int size, const T hl, const T hr, const T hul, const T hur) : m_size(size), m_hul(hul), m_hur(hur), m_hl(hl), m_hr(hr) {}
     /** Number of cells */
     const unsigned int m_size;

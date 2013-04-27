@@ -11,8 +11,18 @@ class ExtendedDamBreak : public Scenario<T>
 
 public:
 
-    ExtendedDamBreak(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
+    /**
+     * Constructor which will initialize the vector components using some default values.
+     */
+    ExtendedDamBreak(unsigned int size) : Scenario(size, 300, 300, 0, -200) { }
 
+    /**
+     * Constructor which defines the height and the momentum
+     * @param [in] hl The height for the left wave
+     * @param [in] hr The height for the right wave
+     * @param [in] hu The momentum for the right wave. The momentum of the left wave will
+     * always default to 0.
+     */
     ExtendedDamBreak(unsigned int size, const T hl, const T hr, const T hur) : Scenario(size, hl, hr, 0, hur) { }
 
 	T getHeight(unsigned int pos)
