@@ -8,9 +8,12 @@
 #ifndef _FWAVETEST_H
 #define	_FWAVETEST_H
 
-typedef float T;
-
+#include "src/types.h"
 #include <cxxtest/TestSuite.h>
+#include "scenarios/scenario.h"
+#include "scenarios/rarerare.h"
+#include "scenarios/shockshock.h"
+#include "src/WavePropagation.h"
 #include "FWave.hpp"
 
 class FWaveTest : public CxxTest::TestSuite
@@ -18,11 +21,11 @@ class FWaveTest : public CxxTest::TestSuite
 public:
 
     /** \brief calls the testSingleEigenvalueComputation method with different sets of values
-     * 
+     *
      *  Runs the testSingleEigenvalueComputation method three times.
      *  Every method call gets different parameters.
      *  The expected Eigenvalues were calulated manually.
-     * 
+     *
      */
     void testEigenvalueComputation()
     {
@@ -30,12 +33,12 @@ public:
         testSingleEigenvalueComputation(300, 540, -4, 40, -64.152, 64.2255);
         testSingleEigenvalueComputation(64, 1000, -128, -647, -73.1622, 71.3219);
     }
-    
+
     /** \brief calls the testSingleZeroNetUpdate method with different sets of values
-     * 
+     *
      *  Calls testSingleZeroNetUpdate with values that represent steady states to test
-     *  if the net updates will be zero as expected.     * 
-     * 
+     *  if the net updates will be zero as expected.     *
+     *
      */
     void testZeroNetUpdates()
     {
@@ -43,21 +46,105 @@ public:
         testSingleZeroNetUpdate(48.0, 48.0, -39.0, -39.0, 0.0, 0.0);
         testSingleZeroNetUpdate(3000.0, 3000.0, 0.0, 0.0, 0.0, 0.0);
     }
-    
+
     /** \brief calls the testSingleSupersonicProblem method a set of values
-     * 
+     *
      */
     void testSupersonicProblems()
     {
         testSingleSupersonicProblem(1.0, 1.0, 10.0, 20.0, 0.0, 0.0);
     }
 
+    void testShockShockProblems()
+    {
+        int size = 10;
+        int hValue = 0, huValue = 1, expected = 2;
+        T **testValues = new T*[3];
+        for (int i = 0; i < 3; i++)
+            testValues[i] = new T[3];
+
+        testValues[0][hValue] = 8741.6;
+        testValues[0][huValue] = 287.7;
+        testValues[0][expected] = 8742.5;
+        testValues[1][hValue] = 8276.9;
+        testValues[1][huValue] = 531.9;
+        testValues[1][expected] = 8278.8;
+        testValues[2][hValue] = 10483.4;
+        testValues[2][huValue] = 984.2;
+        testValues[2][expected] = 10486.5;
+
+        scenarios::Scenario<T> *scenario;
+        for (int i = 0; i < 3; i++)
+        {
+            scenario = new scenarios::ShockShock(size, testValues[i][hValue], testValues[i][huValue]);
+            testSingleScenario(scenario, size, 1000, testValues[i][expected]);
+        }
+
+        delete scenario;
+        for (int i = 0; i < 3; i++)
+            delete [] testValues[i];
+        delete [] testValues;
+    }
+
+    void testRareRareProblems()
+    {
+        int size = 10;
+        int hValue = 0, huValue = 1, expected = 2;
+        T **testValues = new T*[3];
+        for (int i = 0; i < 3; i++)
+            testValues[i] = new T[3];
+
+        testValues[0][hValue] = 1387.1;
+        testValues[0][huValue] = -101.9;
+        testValues[0][expected] = 1386.3;
+        testValues[1][hValue] = 6907.4;
+        testValues[1][huValue] = -180.6;
+        testValues[1][expected] = 6906.7;
+        testValues[2][hValue] = 10539.6;
+        testValues[2][huValue] = -988.5;
+        testValues[2][expected] = 10536.5;
+
+        scenarios::Scenario<T> *scenario;
+        for (int i = 0; i < 3; i++)
+        {
+            scenario = new scenarios::RareRare(size, testValues[i][hValue], testValues[i][huValue]);
+            testSingleScenario(scenario, size, 1000, testValues[i][expected]);
+        }
+
+        delete scenario;
+        for (int i = 0; i < 3; i++)
+            delete [] testValues[i];
+        delete [] testValues;
+    }
+
 private:
 
+    void testSingleScenario(scenarios::Scenario<T> *scenario, const int size, const int timeSteps, const T expectedValue)
+    {
+        T *h = new T[size+2];
+        T *hu = new T[size+2];
+        for (unsigned int j = 0; j < size+2; j++)
+        {
+            hu[j] = scenario->getMomentum(j);
+            h[j] = scenario->getHeight(j);
+        }
+        WavePropagation wavePropagation(h, hu, size, scenario->getCellSize());
+        for (unsigned int j = 0; j < timeSteps; j++)
+        {
+            wavePropagation.setOutflowBoundaryConditions();
+            T maxTimeStep = wavePropagation.computeNumericalFluxes();
+            wavePropagation.updateUnknowns(maxTimeStep);
+        }
+        TS_ASSERT(areValuesAlmostEqual(h[size / 2], expectedValue)
+                       && areValuesAlmostEqual(h[size / 2 + 1], expectedValue));
+        delete [] h;
+        delete [] hu;
+    }
+
     /** \brief tests if the net updates are approximately zero
-     * 
+     *
      *  Computes the net updates and then tests if they are with respect to machine precision approximately zero.
-     * 
+     *
      * @param [in] hl The height of the left water column
      * @param [in] hr The height of the right water column
      * @param [in] hul The space time dependent momentum of the left water column
@@ -74,8 +161,8 @@ private:
     }
 
     /** \brief tests the correctness for a supersonic problem
-     * 
-     *  updates RoeEigenvalues, computes the net updates and tests if the supersonic implication, 
+     *
+     *  updates RoeEigenvalues, computes the net updates and tests if the supersonic implication,
      *  that one of the net updates is zero, is true.
      *
      * @param [in] hl The height of the left water column
@@ -107,18 +194,18 @@ private:
             TS_ASSERT(maxEdgeSpeed == 0);
         }
     }
-    
+
     /** \brief tests the Eigenvalue Computation
-     * 
+     *
      *  Updates and reads the calculated RoeEigenvalues.
      *  Then it compares it to the ones which were calculated manually and tests if they are approximatly equal.
-     * 
+     *
      * @param [in] hl The height of the left water column
      * @param [in] hr The height of the right water column
      * @param [in] hul The space time dependent momentum of the left water column
      * @param [in] hur The space time dependent momentum of the right water column
-     * @param [in] expected1 first expected Eigenvalue 
-     * @param [in] expected2 second expected Eigenvalue 
+     * @param [in] expected1 first expected Eigenvalue
+     * @param [in] expected2 second expected Eigenvalue
      */
     void testSingleEigenvalueComputation(const T hl, const T hr, const T hul, const T hur, const T expected1, const T expected2)
     {
@@ -130,7 +217,7 @@ private:
     }
 
     solver::FWave<T> m_solver;
-    
+
     void singleEigenvalueComputationTest(const T &hl, const T &hr, const T &hul, const T &hur, const T expectedEigenvalues[2], T actualEigenvalues[2])
     {
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
@@ -140,7 +227,7 @@ private:
     }
 
     /** \brief tests if the given values are approximately zero
-     * 
+     *
      * @param [in] updates
      */
     void checkIfUpdatesAreApproximatelyZero(const T updates[4])
@@ -153,7 +240,7 @@ private:
         }
     }
     /** \brief tests if the given actual Eigenvalues equal the expected Eigenvalues
-     * 
+     *
      * @param [in] actualEigenvalues array with the actual Eigenvalues
      * @param [in] expectedEigenvalues array with the expected Eigenvalues
      */
@@ -164,14 +251,14 @@ private:
     }
 
     /** \brief tests if given values are approximatly equal
-     * 
-     * @param [in] value1 first value 
+     *
+     * @param [in] value1 first value
      * @param [in] value2 second value
      * @return true if the values are equal, else false
      */
     bool areValuesAlmostEqual(const T value1, const T value2)
     {
-        return fabs(value1 - value2) < 0.0001;
+        return fabs(value1 - value2) < 0.1;
     }
 
 };
