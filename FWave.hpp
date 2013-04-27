@@ -17,6 +17,9 @@
 namespace solver
 {
 
+/**
+ * A basic f-wave solver which computes net updates for two given wave vectors.
+ */
 template <typename T> class FWave
 {
 public:
