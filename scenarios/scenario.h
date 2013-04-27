@@ -1,12 +1,10 @@
 #ifndef SCENARIOS_SCENARIO_H_
 #define SCENARIOS_SCENARIO_H_
 
-#include "../types.h"
-
 namespace scenarios
 {
 
-class Scenario
+template <typename T> class Scenario
 {
 
 protected:
@@ -19,12 +17,12 @@ public:
     /**
      * @return Initial water height at pos
      */
-    virtual unsigned int getHeight(unsigned int pos) = 0;
+    virtual T getHeight(unsigned int pos) = 0;
 
     /**
      * @return Space time dependent momentum at pos
      */
-    virtual int getMomentum(unsigned int pos) = 0;
+    virtual T getMomentum(unsigned int pos) = 0;
 
     /**
      * @return Cell size of one cell (= domain size/number of cells)

@@ -7,21 +7,21 @@
 namespace scenarios
 {
 
-class RareRare : public Scenario
+class RareRare : public Scenario<T>
 {
 
 public:
 
     RareRare(unsigned int size) : Scenario(size) { }
 
-    unsigned int getHeight(unsigned int pos)
+    T getHeight(unsigned int pos)
     {
         return 300;
     }
 
-    int getMomentum(unsigned int pos)
+    T getMomentum(unsigned int pos)
     {
-        int v = 200;
+        T v = 200;
         if (pos <= m_size/2)
             return -v;
         return v;
