@@ -55,7 +55,7 @@ import os
 env = Environment()
 
 cxx = Environment(tools = ['default', 'cxxtest'])
-cxx.CxxTest('fwave', ['FWaveTest.h'])
+cxx.CxxTest('fwave', ['FWaveTest.h', 'src/WavePropagation.cpp'])
 
 # eclipse specific flag
 env.Append(CCFLAGS=['-fmessage-length=0'])
