@@ -148,7 +148,6 @@ private:
         m_solver.computeFluxDeltaValues(hl, hr, hul, hur, flux);
         for (int i = 0; i < 2; i++)
             TS_ASSERT_DELTA(flux[i], expected[i], 0.1);
-
     }
 
 
@@ -275,7 +274,6 @@ private:
      */
     void checkIfUpdatesAreApproximatelyZero(const T updates[4])
     {
-
         for (int i = 0; i < 4; i++)
             TS_ASSERT_DELTA(updates[i], 0, 0.00001);
     }
