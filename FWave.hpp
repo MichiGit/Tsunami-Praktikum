@@ -56,18 +56,22 @@ public:
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
         updateRoeEigenvalues(hl, hr, hul, hur);
-        T fluxDeltaValues[2] = {0};
+        T *fluxDeltaValues = new T[2]();
         computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
-        T alpha[2] = {0};
+        T *alpha = new T[2]();
         computeEigencoefficients(hl, hr, fluxDeltaValues, alpha);
+        delete [] fluxDeltaValues;
 
         // compute the wave vectors
-        T z[2][2];
+        T **z = new T*[2];
+        for (int i = 0; i < 2; i++)
+            z[i] = new T[2]();
 
         z[0][0] = alpha[0];
         z[0][1] = alpha[0] * roeEigenvalues[0];
         z[1][0] = alpha[1];
         z[1][1] = alpha[1] * roeEigenvalues[1];
+        delete [] alpha;
 
         for (int i = 0; i < 2; i++)
         {
