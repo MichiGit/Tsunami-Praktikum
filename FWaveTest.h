@@ -135,8 +135,8 @@ private:
             T maxTimeStep = wavePropagation.computeNumericalFluxes();
             wavePropagation.updateUnknowns(maxTimeStep);
         }
-        TS_ASSERT(areValuesAlmostEqual(h[size / 2], expectedValue)
-                       && areValuesAlmostEqual(h[size / 2 + 1], expectedValue));
+        TS_ASSERT_DELTA(h[size / 2], expectedValue, 0.1);
+        TS_ASSERT_DELTA(h[size / 2 + 1], expectedValue, 0.1);
         delete [] h;
         delete [] hu;
     }
@@ -212,8 +212,8 @@ private:
         T actualEigenvalues[2];
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
         m_solver.getRoeEigenvalues(actualEigenvalues);
-        TS_ASSERT(areValuesAlmostEqual(expected1, actualEigenvalues[0]));
-        TS_ASSERT(areValuesAlmostEqual(expected2, actualEigenvalues[1]));
+        TS_ASSERT_DELTA(expected1, actualEigenvalues[0], 0.0001);
+        TS_ASSERT_DELTA(expected2, actualEigenvalues[1], 0.0001);
     }
 
     solver::FWave<T> m_solver;
@@ -222,8 +222,8 @@ private:
     {
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
         m_solver.getRoeEigenvalues(actualEigenvalues);
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[0], actualEigenvalues[0]));
-        TS_ASSERT(areValuesAlmostEqual(expectedEigenvalues[1], actualEigenvalues[1]));
+        TS_ASSERT_DELTA(expectedEigenvalues[0], actualEigenvalues[0], 0.00001);
+        TS_ASSERT_DELTA(expectedEigenvalues[1], actualEigenvalues[1], 0.00001);
     }
 
     /** \brief tests if the given values are approximately zero
@@ -234,10 +234,7 @@ private:
     {
 
         for (int i = 0; i < 4; i++)
-        {
-            TS_ASSERT_LESS_THAN(updates[i], 1);
-            TS_ASSERT_LESS_THAN(-1, updates[i]);
-        }
+            TS_ASSERT_DELTA(updates[i], 0, 0.00001);
     }
     /** \brief tests if the given actual Eigenvalues equal the expected Eigenvalues
      *
@@ -248,17 +245,6 @@ private:
     {
         for (int i = 0; i < 2; i++)
             TS_ASSERT_EQUALS(actualEigenvalues[i], expectedEigenvalues[i]);
-    }
-
-    /** \brief tests if given values are approximatly equal
-     *
-     * @param [in] value1 first value
-     * @param [in] value2 second value
-     * @return true if the values are equal, else false
-     */
-    bool areValuesAlmostEqual(const T value1, const T value2)
-    {
-        return fabs(value1 - value2) < 0.1;
     }
 
 };
