@@ -54,7 +54,10 @@ import os
 # Scons environement
 env = Environment()
 
+# CxxTest environment
 cxx = Environment(tools = ['default', 'cxxtest'])
+
+# execute the fwave test
 cxx.CxxTest('fwave', ['FWaveTest.h', 'src/WavePropagation.cpp'])
 
 # eclipse specific flag
