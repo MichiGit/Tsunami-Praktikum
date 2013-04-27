@@ -2,7 +2,6 @@
 #define SCENARIOS_SHOCKSHOCK_H_
 
 #include "scenario.h"
-#include "../types.h"
 
 namespace scenarios
 {

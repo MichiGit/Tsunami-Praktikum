@@ -38,7 +38,6 @@
 #define SCENARIOS_EXTDAMBREAK_H_
 
 #include "scenario.h"
-#include "../types.h"
 
 namespace scenarios
 {
