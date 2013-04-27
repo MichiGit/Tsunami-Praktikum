@@ -13,19 +13,19 @@ public:
 
     RareRare(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
 
-    RareRare(unsigned int size, const T h, const T hul, const T hur) : Scenario(size, h, h, hul, hur) { }
+    RareRare(unsigned int size, const T h, const T hu) :
+        Scenario(size, h, h, hu >= 0 ? -hu : hu, hu >= 0 ? hu : -hu) { }
 
     T getHeight(unsigned int pos)
     {
-        return 300;
+        return m_hl;
     }
 
     T getMomentum(unsigned int pos)
     {
-        T v = 200;
         if (pos <= m_size/2)
-            return -v;
-        return v;
+            return m_hul;
+        return m_hur;
     }
 };
 

@@ -13,7 +13,8 @@ public:
 
     ShockShock(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
 
-    ShockShock(unsigned int size, const T h, const T hul, const T hur) : Scenario(size, h, h, hul, hur) { }
+    ShockShock(unsigned int size, const T h, const T hu) :
+        Scenario(size, h, h, hu >= 0 ? hu : -hu, hu >= 0 ? -hu : hu) { }
 
     T getHeight(unsigned int pos)
     {

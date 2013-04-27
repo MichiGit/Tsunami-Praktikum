@@ -49,21 +49,21 @@ public:
 
     ExtendedDamBreak(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
 
-    ExtendedDamBreak(unsigned int size, const T h, const T hul, const T hur) : Scenario(size, h, h, hul, hur) { }
+    ExtendedDamBreak(unsigned int size, const T hl, const T hr, const T hur) : Scenario(size, hl, hr, 0, hur) { }
 
 	T getHeight(unsigned int pos)
 	{
 		if (pos <= m_size/2)
-			return 253;
+			return m_hl;
 
-		return 250;
+		return m_hr;
 	}
 
     T getMomentum(unsigned int pos)
     {
         if (pos <= m_size/2)
             return 0;
-        return 20;
+        return m_hur;
     }
 };
 
