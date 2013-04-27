@@ -11,19 +11,20 @@ class ShockShock : public Scenario<T>
 
 public:
 
-    ShockShock(unsigned int size) : Scenario(size) { }
+    ShockShock(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
+
+    ShockShock(unsigned int size, const T h, const T hul, const T hur) : Scenario(size, h, h, hul, hur) { }
 
     T getHeight(unsigned int pos)
     {
-        return 300;
+        return m_hl;
     }
 
     T getMomentum(unsigned int pos)
     {
-        T v = 200;
         if (pos <= m_size/2)
-            return v;
-        return -v;
+            return m_hul;
+        return m_hur;
     }
 };
 

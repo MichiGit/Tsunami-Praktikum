@@ -47,7 +47,9 @@ class ExtendedDamBreak : public Scenario<T>
 
 public:
 
-    ExtendedDamBreak(unsigned int size) : Scenario(size) { }
+    ExtendedDamBreak(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
+
+    ExtendedDamBreak(unsigned int size, const T h, const T hul, const T hur) : Scenario(size, h, h, hul, hur) { }
 
 	T getHeight(unsigned int pos)
 	{

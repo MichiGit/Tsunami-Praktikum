@@ -8,11 +8,16 @@ template <typename T> class Scenario
 {
 
 protected:
+    Scenario(unsigned int size, const T hl, const T hr, const T hul, const T hur) : m_size(size), m_hul(hul), m_hur(hur), m_hl(hl), m_hr(hr) {}
     /** Number of cells */
     const unsigned int m_size;
+    const T m_hul;
+    const T m_hur;
+    const T m_hl;
+    const T m_hr;
 
 public:
-    Scenario(unsigned int size) : m_size(size) { }
+    //Scenario(unsigned int size) : m_size(size) { }
 
     /**
      * @return Initial water height at pos

@@ -11,7 +11,9 @@ class RareRare : public Scenario<T>
 
 public:
 
-    RareRare(unsigned int size) : Scenario(size) { }
+    RareRare(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
+
+    RareRare(unsigned int size, const T h, const T hul, const T hur) : Scenario(size, h, h, hul, hur) { }
 
     T getHeight(unsigned int pos)
     {
