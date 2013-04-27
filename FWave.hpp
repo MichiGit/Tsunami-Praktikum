@@ -159,15 +159,16 @@ public:
         eigenvalues[1] = roeEigenvalues[1];
     }
 
-private:
-
-    T roeEigenvalues[2];
-
     void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]) const
     {
         fluxDeltaValues[0] = hur - hul;
         fluxDeltaValues[1] = hur * (hur / hr) + 0.5 * g * hr * hr - (hul  * (hul / hl)  + 0.5 * g * hl * hl);
     }
+
+private:
+
+    T roeEigenvalues[2];
+
 };
 
 }
