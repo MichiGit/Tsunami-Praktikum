@@ -117,7 +117,20 @@ public:
         delete [] testValues;
     }
 
+    void testComputeParticleVelocity()
+    {
+        testSingleComputeParticleVelocity(200, 150, -40, -1, -0.11027);
+        testSingleComputeParticleVelocity(2, 87, 10, 94, 1.59649);
+        testSingleComputeParticleVelocity(112, 34, 127, 209, 2.91481);
+    }
+
 private:
+
+    void testSingleComputeParticleVelocity(const T &hl, const T &hr, const T &hul, const T &hur, const T &expected)
+    {
+        T result = m_solver.computeParticleVelocity(hl, hr, hul, hur);
+        TS_ASSERT_DELTA(result, expected, 0.0001);
+    }
 
     void testSingleScenario(scenarios::Scenario<T> *scenario, const int size, const int timeSteps, const T expectedValue)
     {
