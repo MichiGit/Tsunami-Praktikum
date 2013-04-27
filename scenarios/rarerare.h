@@ -7,7 +7,7 @@
 namespace scenarios
 {
 
-class RareRare : Scenario
+class RareRare : public Scenario
 {
 
 public:

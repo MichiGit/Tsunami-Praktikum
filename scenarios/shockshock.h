@@ -7,7 +7,7 @@
 namespace scenarios
 {
 
-class ShockShock : Scenario
+class ShockShock : public Scenario
 {
 
 public:
