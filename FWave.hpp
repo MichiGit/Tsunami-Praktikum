@@ -21,6 +21,15 @@ template <typename T> class FWave
 {
 public:
 
+    FWave()
+    {
+        roeEigenvalues = new T[2];
+    }
+
+    ~FWave()
+    {
+        delete [] roeEigenvalues;
+    }
     /** \brief Computes the net updates and the maxiumum edge speed for a given set of parameters.
      *
      * Computes the net updates and the maximum edge speed for a given set of water columns and bathymetry values.
@@ -167,7 +176,7 @@ public:
 
 private:
 
-    T roeEigenvalues[2];
+    T *roeEigenvalues;
 
 };
 
