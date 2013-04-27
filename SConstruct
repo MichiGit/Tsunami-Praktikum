@@ -58,7 +58,7 @@ env = Environment()
 cxx = Environment(tools = ['default', 'cxxtest'])
 
 # execute the fwave test
-cxx.CxxTest('fwave', ['FWaveTest.h', 'src/WavePropagation.cpp'])
+cxx.CxxTest('fwave', ['src/tests/FWaveTest.h', 'src/WavePropagation.cpp'])
 
 # doxygen environment
 doxy = Environment(tools = ["default", "doxygen"])
