@@ -138,6 +138,7 @@ public:
         expected[1] = 66169.2;
         testSingleComputeFluxDeltaValues(40, 123, -89, -30.5, expected, flux);
         delete [] flux;
+        delete [] expected;
     }
 
 private:
@@ -192,10 +193,11 @@ private:
      */
     void testSingleZeroNetUpdate(T hl, T hr, T hul, T hur, T b1, T b2)
     {
-        T updates[4] = {0};
+        T *updates = new T[4]();
         T maxEdgeSpeed;
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         checkIfUpdatesAreApproximatelyZero(updates);
+        delete [] updates;
     }
 
     /** \brief tests the correctness for a supersonic problem
@@ -212,10 +214,10 @@ private:
      */
     void testSingleSupersonicProblem(T hl, T hr, T hul, T hur, T b1, T b2)
     {
-        T updates[4] = {0};
+        T *updates = new T[4]();
         T maxEdgeSpeed;
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
-        T roe[2];
+        T *roe = new T[2]();
         m_solver.getRoeEigenvalues(roe);
         m_solver.computeNetUpdates(hl, hr, hul, hur, b1, b2, updates[0], updates[1], updates[2], updates[3], maxEdgeSpeed);
         bool leftUpdateIsZero = updates[0] == 0 && updates[2] == 0;
@@ -231,6 +233,8 @@ private:
         {
             TS_ASSERT(maxEdgeSpeed == 0);
         }
+        delete [] updates;
+        delete [] roe;
     }
 
     /** \brief tests the Eigenvalue Computation
@@ -247,11 +251,12 @@ private:
      */
     void testSingleEigenvalueComputation(const T hl, const T hr, const T hul, const T hur, const T expected1, const T expected2)
     {
-        T actualEigenvalues[2];
+        T *actualEigenvalues = new T[2]();
         m_solver.updateRoeEigenvalues(hl, hr, hul, hur);
         m_solver.getRoeEigenvalues(actualEigenvalues);
         TS_ASSERT_DELTA(expected1, actualEigenvalues[0], 0.0001);
         TS_ASSERT_DELTA(expected2, actualEigenvalues[1], 0.0001);
+        delete [] actualEigenvalues;
     }
 
     solver::FWave<T> m_solver;
