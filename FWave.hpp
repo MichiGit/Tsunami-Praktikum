@@ -52,7 +52,7 @@ public:
      * @param [out] maxEdgeSpeed The maximum of the two waves speed values
      *
      */
-    void computeNetUpdates(T &hl, T &hr, T &hul, T &hur, T bl, T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
+    void computeNetUpdates(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                            T &maxEdgeSpeed)
     {
         hNetUpdatesLeft = hNetUpdatesRight = huNetUpdatesLeft = huNetUpdatesRight = maxEdgeSpeed = (T)0;
