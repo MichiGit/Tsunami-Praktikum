@@ -34,8 +34,8 @@
  * @author Sebastian Rettenberger <rettenbs@in.tum.de>
  */
 
-#ifndef SCENARIOS_DAMBREAK_H_
-#define SCENARIOS_DAMBREAK_H_
+#ifndef SCENARIOS_EXTDAMBREAK_H_
+#define SCENARIOS_EXTDAMBREAK_H_
 
 #include "scenario.h"
 #include "../types.h"
@@ -43,12 +43,14 @@
 namespace scenarios
 {
 
-class DamBreak : Scenario
+class ExtendedDamBreak : public Scenario<T>
 {
 
 public:
 
-	unsigned int getHeight(unsigned int pos)
+    ExtendedDamBreak(unsigned int size) : Scenario(size) { }
+
+	T getHeight(unsigned int pos)
 	{
 		if (pos <= m_size/2)
 			return 253;
@@ -56,7 +58,7 @@ public:
 		return 250;
 	}
 
-    int getMomentum(unsigned int pos)
+    T getMomentum(unsigned int pos)
     {
         if (pos <= m_size/2)
             return 0;
@@ -66,4 +68,4 @@ public:
 
 }
 
-#endif /* SCENARIOS_DAMBREAK_H_ */
+#endif /* SCENARIOS_EXTDAMBREAK_H_ */
