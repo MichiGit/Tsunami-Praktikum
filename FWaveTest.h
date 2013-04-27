@@ -124,7 +124,32 @@ public:
         testSingleComputeParticleVelocity(112, 34, 127, 209, 2.91481);
     }
 
+    void testComputeFluxDeltaValues()
+    {
+        T *flux = new T[2];
+        T *expected = new T[2];
+        expected[0] = 14;
+        expected[1] = -86366.41;
+        testSingleComputeFluxDeltaValues(200.5, 150.3, 40, 54, expected, flux);
+        expected[0] = 21.8;
+        expected[1] = -29894.8;
+        testSingleComputeFluxDeltaValues(80.7, 20, 21.2, 43, expected, flux);
+        expected[0] = 58.5;
+        expected[1] = 66169.2;
+        testSingleComputeFluxDeltaValues(40, 123, -89, -30.5, expected, flux);
+        delete [] flux;
+    }
+
 private:
+
+    void testSingleComputeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, const T expected[2], T *flux)
+    {
+        m_solver.computeFluxDeltaValues(hl, hr, hul, hur, flux);
+        for (int i = 0; i < 2; i++)
+            TS_ASSERT_DELTA(flux[i], expected[i], 0.1);
+
+    }
+
 
     void testSingleComputeParticleVelocity(const T &hl, const T &hr, const T &hul, const T &hur, const T &expected)
     {
