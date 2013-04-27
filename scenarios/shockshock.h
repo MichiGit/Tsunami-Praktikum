@@ -12,6 +12,8 @@ class ShockShock : public Scenario
 
 public:
 
+    ShockShock(unsigned int size) : Scenario(size) { }
+
     unsigned int getHeight(unsigned int pos)
     {
         return 300;

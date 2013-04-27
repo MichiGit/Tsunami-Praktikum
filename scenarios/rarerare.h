@@ -12,6 +12,8 @@ class RareRare : public Scenario
 
 public:
 
+    RareRare(unsigned int size) : Scenario(size) { }
+
     unsigned int getHeight(unsigned int pos)
     {
         return 300;
