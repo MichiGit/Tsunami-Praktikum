@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 #include <cassert>
 
 #define g 9.81
@@ -120,21 +121,6 @@ public:
         assert(sqrt(hl) + sqrt(hr) != (T)0);
         T particleVelocity = (ul * sqrt(hl) + ur * sqrt(hr)) / (sqrt(hl) + sqrt(hr));
         return particleVelocity;
-    }
-
-    /**
-     * Computes the values of the flux function for a given water column.
-     *
-     * @param [in] h The height of the water column
-     * @param [in] hu The space time dependent momentum of the water column
-     * @param [out] fluxValues The values of the flux function for the given water column
-     */
-    void computeFluxValues(const T &h, const T &hu, T fluxValues[2]) const
-    {
-        // The height should not be negative
-        assert(h >= 0);
-        fluxValues[0] = hu;
-        fluxValues[1] = h * hu + 0.5 * g * h * h;
     }
 
     /**
