@@ -55,6 +55,7 @@ public:
     void computeNetUpdates(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight,
                            T &maxEdgeSpeed)
     {
+        // reset all the output parameters to 0
         hNetUpdatesLeft = hNetUpdatesRight = huNetUpdatesLeft = huNetUpdatesRight = maxEdgeSpeed = (T)0;
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
@@ -65,11 +66,11 @@ public:
         computeEigencoefficients(hl, hr, fluxDeltaValues, alpha);
         delete [] fluxDeltaValues;
 
-        // compute the wave vectors
         T **z = new T*[2];
         for (int i = 0; i < 2; i++)
             z[i] = new T[2]();
 
+        // compute the wave vectors
         z[0][0] = alpha[0];
         z[0][1] = alpha[0] * roeEigenvalues[0];
         z[1][0] = alpha[1];
