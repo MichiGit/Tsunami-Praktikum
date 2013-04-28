@@ -8,13 +8,13 @@
 #ifndef _FWAVETEST_H
 #define	_FWAVETEST_H
 
-#include "src/types.h"
+#include "../types.h"
 #include <cxxtest/TestSuite.h>
-#include "scenarios/scenario.h"
-#include "scenarios/rarerare.h"
-#include "scenarios/shockshock.h"
-#include "src/WavePropagation.h"
-#include "FWave.hpp"
+#include "../scenarios/scenario.h"
+#include "../scenarios/rarerare.h"
+#include "../scenarios/shockshock.h"
+#include "../WavePropagation.h"
+#include "../solvers/FWave.hpp"
 
 class FWaveTest : public CxxTest::TestSuite
 {
