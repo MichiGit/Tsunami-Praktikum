@@ -128,7 +128,7 @@ public:
      * @param [in] hur The space time dependent momentum of the right water column
      * @return The particle velocity for the given waves
      */
-    T computeParticleVelocity(const T hl, const T hr, const T hul, const T hur) const
+    T computeParticleVelocity(const T &hl, const T &hr, const T &hul, const T &hur) const
     {
         // we should not divide by zero
         assert(hl != (T)0);
@@ -151,7 +151,7 @@ public:
      * @param [in] fluxDeltaValues The jump in the fluxes
      * @param [out] alpha The eigencofficients (alpha values) for the given input
      */
-    void computeEigencoefficients(const T &hl, const T &hr, const T fluxDeltaValues[2], T alpha[2])
+    void computeEigencoefficients(const T &hl, const T &hr, const T fluxDeltaValues[2], T alpha[2]) const
     {
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
