@@ -14,7 +14,7 @@ public:
     /**
      * Constructor which will initialize the vector components using some default values.
      */
-    RareRare(unsigned int size) : Scenario(size, 300, 300, 200, -200) { }
+    RareRare(unsigned int size) : Scenario(size, 300, 300, -200, 200) { }
 
     /**
      * Constructor which defines the height and the momentum
