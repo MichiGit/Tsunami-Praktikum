@@ -54,7 +54,6 @@ public:
     {
         // requirement: u > sqrt(g*h)
         testSingleSupersonicProblem(1.0, 1.0, 10.0, 20.0, 0.0, 0.0);
-        testSingleSupersonicProblem(5.0, 6.0, 30.0, 48.0, 0.0, 0.0);
     }
 
     void testShockShockProblems()
