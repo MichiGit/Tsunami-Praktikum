@@ -14,7 +14,7 @@ public:
     /**
      * Constructor which will initialize the vector components using some default values.
      */
-    ExtendedDamBreak(unsigned int size) : Scenario(size, 300, 300, 0, -200) { }
+    ExtendedDamBreak(unsigned int size) : Scenario(size, 14, 3.5, 0, 0.7) { }
 
     /**
      * Constructor which defines the height and the momentum
@@ -38,6 +38,11 @@ public:
         if (pos <= m_size/2)
             return 0;
         return m_hur;
+    }
+
+    T getCellSize()
+    {
+        return 30000.f / m_size;
     }
 };
 
