@@ -4,16 +4,25 @@
 namespace scenarios
 {
 
+/**
+ * A standard scenario where there are only
+ * two different wave vectors "meeting" each other at some
+ * position \f$x_{dis}\f$ which defaults to the middle of the
+ * scenario size \f$\lfloor{x/2}\rfloor\f$.
+ */
 template <typename T> class Scenario
 {
 
 protected:
 
     /**
-     * The standard constructor for a scenario where there are only
-     * two different wave vectors "meeting" each other at some
-     * position \f$x_{dis}\f$ which defaults to the middle of the
-     * scenario size \f$\lfloor{x/2}\rfloor\f$
+     * The constructor for a standard scenario
+     *
+     * @param [in] size The number of cells
+     * @param [in] hl The height of the left wave vector
+     * @param [in] hr The height of the right wave vector
+     * @param [in] hul The momentum of the left wave vector
+     * @param [in] hur THe momentum of the right wave vector
      */
     Scenario(unsigned int size, const T hl, const T hr, const T hul, const T hur) : m_size(size), m_hul(hul), m_hur(hur), m_hl(hl), m_hr(hr) {}
     /** Number of cells */
