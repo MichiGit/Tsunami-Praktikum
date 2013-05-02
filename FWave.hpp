@@ -61,7 +61,7 @@ public:
         assert(hl >= 0 && hr >= 0);
         updateRoeEigenvalues(hl, hr, hul, hur);
         T *fluxDeltaValues = new T[2]();
-        computeFluxDeltaValues(hl, hr, hul, hur, fluxDeltaValues);
+        computeFluxDeltaValues(hl, hr, hul, hur, bl, br fluxDeltaValues);
         T *alpha = new T[2]();
         computeEigencoefficients(hl, hr, fluxDeltaValues, alpha);
         delete [] fluxDeltaValues;
@@ -176,10 +176,11 @@ public:
         eigenvalues[1] = roeEigenvalues[1];
     }
 
-    void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, T fluxDeltaValues[2]) const
+    void computeFluxDeltaValues(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br, T fluxDeltaValues[2]) const
     {
+        T bathymetryeffect = -g * (br -bl) * ((hl + hr) / 2);
         fluxDeltaValues[0] = hur - hul;
-        fluxDeltaValues[1] = hur * (hur / hr) + 0.5 * g * hr * hr - (hul  * (hul / hl)  + 0.5 * g * hl * hl);
+        fluxDeltaValues[1] = (hur * (hur / hr) + 0.5 * g * hr * hr - (hul  * (hul / hl)  + 0.5 * g * hl * hl)) - bathymetryeffect;
     }
 
 private:
