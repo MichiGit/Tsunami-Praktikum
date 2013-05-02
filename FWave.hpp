@@ -59,6 +59,8 @@ public:
         hNetUpdatesLeft = hNetUpdatesRight = huNetUpdatesLeft = huNetUpdatesRight = maxEdgeSpeed = (T)0;
         // The height should not be negative
         assert(hl >= 0 && hr >= 0);
+        computeBoundaryConditions(hl,hr,hul,bl,br);
+                
         updateRoeEigenvalues(hl, hr, hul, hur);
         T *fluxDeltaValues = new T[2]();
         computeFluxDeltaValues(hl, hr, hul, hur, bl, br fluxDeltaValues);
@@ -183,7 +185,7 @@ public:
         fluxDeltaValues[1] = (hur * (hur / hr) + 0.5 * g * hr * hr - (hul  * (hul / hl)  + 0.5 * g * hl * hl)) - bathymetryeffect;
     }
     
-    void computeBoundaryConditions(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight){
+    void computeBoundaryConditions(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br){
         if(hr == 0 && hl > 0){
             hr = hl;
             br = bl;
