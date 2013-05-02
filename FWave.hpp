@@ -181,7 +181,16 @@ namespace solver {
             fluxDeltaValues[0] = hur - hul;
             fluxDeltaValues[1] = (hur * (hur / hr) + 0.5 * g * hr * hr - (hul * (hul / hl) + 0.5 * g * hl * hl)) - bathymetryeffect;
         }
-
+        
+        /** Carries the reflecting (wet-dry) boundary condition to effect.
+         * 
+         * @param [in] hl The height of the left water column
+         * @param [in] hr The height of the right water column
+         * @param [in] hul The space time dependent momentum of the left water column
+         * @param [in] hur The space time dependent momentum of the right water column
+         * @param [in] bl The first bathymetry component
+         * @param [in] br The second bathymetry component
+         */
         void computeBoundaryConditions(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br) {
             if (hr == 0 && hl > 0) {
                 hr = hl;
