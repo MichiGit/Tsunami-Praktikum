@@ -184,7 +184,15 @@ public:
     }
     
     void computeBoundaryConditions(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight){
-        
+        if(hr == 0 && hl > 0){
+            hr = hl;
+            br = bl;
+            hur = -hul;
+        } else if(hl == 0 && hr > 0){
+            hl = hr;
+            bl = br;
+            hul = -hur;
+        }
     }
 
 private:
