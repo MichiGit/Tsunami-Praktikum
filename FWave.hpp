@@ -182,6 +182,10 @@ public:
         fluxDeltaValues[0] = hur - hul;
         fluxDeltaValues[1] = (hur * (hur / hr) + 0.5 * g * hr * hr - (hul  * (hul / hl)  + 0.5 * g * hl * hl)) - bathymetryeffect;
     }
+    
+    void computeBoundaryConditions(const T &hl, const T &hr, const T &hul, const T &hur, const T bl, const T br, T &hNetUpdatesLeft, T &hNetUpdatesRight, T &huNetUpdatesLeft, T &huNetUpdatesRight){
+        
+    }
 
 private:
 
